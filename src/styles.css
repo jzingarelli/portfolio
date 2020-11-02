@@ -8,7 +8,6 @@ html {
   position: fixed;
   z-index: 10;
   width: 100%;
-  /* margin-left: -48px; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -76,16 +75,9 @@ h2 span {
   -webkit-box-decoration-break: clone;
 }
 
-
-
-/* p {
-  float: left;
-} */
-
 span {
   cursor: none;
   cursor: default;
-  /* position: relative; */
 }
 
 #hoverImageHolder {
@@ -108,44 +100,18 @@ span {
   height: 100vh;
   margin: 0;
   position: absolute;
-  /* margin-left: -48px; */
   perspective: 100px;
-  animation-name: scaleUpDown;
-  animation-duration: 5s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: ease;
-  /* display: flex; */
-  /* align-items: center;
-  justify-content: center; */
 }
 
-/* @keyframes scaleUpDown {
-  0% {
-    transform: scale(0.8,0.8);
-  }
-  100% {
-    transform: scale(1,1);
-  }
-} */
 
 #bigCircle {
   width: 50%;
   max-width: 600px;
   height: auto;
   border-radius: 50%;
-  /* background-color: #fff; */
   position: absolute;
   z-index: -100;
   overflow: hidden;
-  /* background-position: center; */
-  /* background-image: url('../img/gradientBG.png'); */
-  /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
-	/* background-size: 400% 400%; */
-  /* filter: blur(1000px);
-  -webkit-filter: blur(8px); */
-  /* transition: background-color 250ms ease; */
-  /* transition: transform 100ms ease-out 10ms; */
 }
 
 #bigArrow {
@@ -153,9 +119,6 @@ span {
   height: 100%;
   margin: 0;
   position: absolute;
-  /* top: 20%;
-  left: 20%; */
-  /* transform: translate(-50%, -50%); */
   border-radius: 1000px;
 }
 
@@ -192,18 +155,6 @@ span {
   line-height: 1.1;
 }
 
-
-/* #intro span:hover {
-  background-color: black;
-  color: white;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-} */
-
 #work {
   /* margin-left: -48px; */
   padding: 20px;
@@ -225,8 +176,6 @@ span {
 .heroImg {
   width: 100%;
   position: relative;
-
-  /* height: 500px; */
 }
 
 .zoom {
@@ -346,7 +295,6 @@ span {
 }
 
 .avatar {
-  /* width: 100%; */
   border-radius: 100%;
   overflow: hidden;
   background-color: #fff6e4;
@@ -424,36 +372,6 @@ span {
 #pinterest a svg:hover {
   fill: #E60023;
 }
-
-/* input[type=text], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-}
-
-input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-
-.form {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-} */
 
 /* Grid
 ââââââââââââââââââââââââââââââââââââââââââââââââââ */

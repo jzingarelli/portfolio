@@ -104,41 +104,6 @@ var circleColors = ['#C5E3F4', '#BCE7DC', '#F38C8F']
 
 const introParent = document.getElementById('intro');
 
-//add hover states to intro text spans
-// for (let i = 0; i < introParent.children.length; i++) {
-//   //add hover listener function to all spans in intro
-//   introParent.children[i].addEventListener("mouseover", function(e) {
-//     //change the background image of the bigcircle on hover of spans
-//     //
-//     // let bgVideo = document.getElementById("bgVideo");
-//     // bgVideo.src = introImages[i]
-//
-//     //change background of intro area to a video depending on which text is hovered
-//     // let bgVideo = document.getElementById("bgVideo");
-//     // bgVideo.src = "img/designReel.mp4"
-//
-//
-//     //change body background on hover of intro text
-//     // let arrowSvg = document.getElementById("arrowImg");
-//     // document.body.style.backgroundColor = circleColors[i];
-//     // arrowSvg.style.fill = circleColors[i];
-//
-//
-//
-//     // bigCircle.style.background = `url(img/${introImages[i]})`;
-//     // bigCircle.style.backgroundSize = "cover";
-//     // bigCircle.style.backgroundPosition = "center";
-//
-//
-//   });
-//
-//   //Add listener for when the span is left by the cursor
-//   introParent.children[i].addEventListener("mouseout", function(e) {
-//     //reset the big circle back to a plain colored background
-//     // bgVideo.src = "";
-//     // document.body.style.backgroundColor = "#fff6e4";
-//   });
-// }
 
 // Returns a function, that, as long as it continues to be invoked, will not
 // be triggered. The function will be called after it stops being called for
@@ -184,9 +149,6 @@ function checkFadeIn(e) {
         fadeInElementChildren[i].style.opacity='1';
         fadeInElementChildren[i].style.transform=`translate3d(0px, 0px, 0px)`;
 
-
-
-        // fadeInElementChildren[i].classList.add("animateToNormal");
       }
     }
   });
