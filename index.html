@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Joey Zingarelli</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" type="text/css" href="src/styles.css" />
+  </head>
+
+  <body onload = "followMouse();">
+
+    <div id="header">
+      <div class="leftNav">
+        <div class="navItem">
+          <a href="index.html">Joey Zingarelli</a>
+        </div>
+      </div>
+      <div class="rightNav">
+        <div class="navItem">
+          <a href="#work">Work</a>
+        </div>
+        <div class="navItem">
+          <a href="#about">About/Contact</a>
+        </div>
+      </div>
+
+
+    </div>
+    <div id="backgroundFullSizeVideo">
+      <video src="" autoplay muted loop id='bgVideo'>
+    </div>
+    <div id="bigCircleHolder" class="newColorBlock">
+      <div id="bigCircle">
+        <div id="bigArrow">
+          <img src="img/arrow.svg" id="arrowImg">
+        </div>
+        <!-- <video src="" autoplay muted loop id='bgVideo'> -->
+      </div>
+    </div>
+    <div class="container" id="introContainer" style="">
+      <div class="row">
+        <div class="ten columns">
+          <h1 id='intro'>
+            <span id="introHover1">Hi there!</span>
+            <span id="introHover2">I’m a multidisciplinary designer</span>
+            <span id="introHover3">and jack of all trades.</span>
+            <span id="introHover4">I’m passionate about solving problems</span>
+            <span id="introHover5">and creating change.</span>
+            <span id="introHover6">Currently I’m traveling the globe for the year.</span>
+            <span id="introHover7">Previously, I worked at Pinterest for 3 years.</span>
+          </h1>
+        </div>
+        <div id="contactRow" style="float:right;">
+          <div class="contactLinks" id="email">
+            <a href="mailto:jvzingarelli@gmail.com" target="_blank">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8V32C0 36.4183 3.58172 40 8 40H32C36.4183 40 40 36.4183 40 32V8C40 3.58172 36.4183 0 32 0H8ZM9.89754 13.1399C10.0812 13.0503 10.2848 13 10.4985 13H29.4795C29.6932 13 29.8969 13.0503 30.0805 13.1399L20.4963 22.0734C20.2572 22.2964 19.7208 22.2964 19.4817 22.0734L9.89754 13.1399ZM9 14.6783C9 14.4016 9.05885 14.1388 9.1639 13.9091L16.2271 20.5L9.1639 26.6451C9.05685 26.4138 9 26.1467 9 25.8671V14.6783ZM23.7509 20.5L30.8141 13.9091C30.9192 14.1388 30.978 14.4016 30.978 14.6783V25.8671C30.978 26.1467 30.9212 26.4138 30.8141 26.6451L23.7509 20.5ZM9.91315 27.4143L17.0076 21.2343L18.8417 22.9388C19.501 23.5537 20.477 23.5537 21.1363 22.9388L22.9704 21.2343L30.0649 27.4143C29.8855 27.4991 29.6871 27.5455 29.4795 27.5455H10.4985C10.291 27.5455 10.0925 27.4991 9.91315 27.4143Z"/>
+              </svg>
+            </a>
+          </div>
+          <div class="contactLinks" id="linkedin">
+            <a href="https://www.linkedin.com/public-profile/in/jzingarelli" target="_blank">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M0 8C0 3.58172 3.58172 0 8 0H32C36.4183 0 40 3.58172 40 8V32C40 36.4183 36.4183 40 32 40H8C3.58172 40 0 36.4183 0 32V8ZM14.7747 10.2839C14.7747 11.529 13.8267 12.5366 12.3442 12.5366C10.9194 12.5366 9.97132 11.529 10.0007 10.2839C9.97132 8.97828 10.9193 8 12.3726 8C13.8267 8 14.7463 8.97828 14.7747 10.2839ZM10.1199 28.8181V14.3162H14.6271V28.8181H10.1199ZM18.1206 14.3181C18.1802 15.5935 18.2398 17.1356 18.2398 18.9446H18.2416V28.821H22.7489V20.4574C22.7489 20.0412 22.8076 19.6267 22.9268 19.3297C23.2229 18.4999 23.9637 17.6399 25.2097 17.6399C26.8408 17.6399 27.4927 18.9143 27.4927 20.7838V28.821H32V20.219C32 15.9502 29.7757 13.9927 26.8106 13.9927C24.4084 13.9927 22.9258 15.3854 22.3326 16.305H22.2437L22.0356 14.3181H18.1206Z"/>
+              </svg>
+            </a>
+          </div>
+          <div class="contactLinks" id="instagram">
+            <a href="https://www.instagram.com/jzingarelli" target="_blank">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8V32C0 36.4183 3.58172 40 8 40H32C36.4183 40 40 36.4183 40 32V8C40 3.58172 36.4183 0 32 0H8ZM24.849 10.2321C23.5837 10.1744 23.2041 10.1622 20 10.1622C16.7959 10.1622 16.4163 10.1744 15.151 10.2321C13.981 10.2855 13.3456 10.481 12.9228 10.6453C12.3626 10.863 11.9629 11.123 11.543 11.543C11.123 11.9629 10.863 12.3626 10.6453 12.9227C10.481 13.3456 10.2855 13.981 10.2321 15.151C10.1744 16.4163 10.1622 16.7959 10.1622 19.9999C10.1622 23.2041 10.1744 23.5836 10.2321 24.849C10.2855 26.019 10.481 26.6544 10.6453 27.0772C10.863 27.6373 11.1231 28.0371 11.543 28.457C11.9629 28.8769 12.3626 29.1369 12.9228 29.3546C13.3456 29.519 13.981 29.7145 15.151 29.7678C16.4162 29.8255 16.7956 29.8378 20 29.8378C23.2044 29.8378 23.5839 29.8255 24.849 29.7678C26.019 29.7145 26.6544 29.519 27.0773 29.3546C27.6374 29.1369 28.0371 28.8769 28.4571 28.457C28.877 28.0371 29.137 27.6373 29.3547 27.0772C29.519 26.6544 29.7145 26.019 29.7679 24.849C29.8256 23.5836 29.8379 23.2041 29.8379 19.9999C29.8379 16.7959 29.8256 16.4163 29.7679 15.151C29.7145 13.981 29.519 13.3456 29.3547 12.9227C29.137 12.3626 28.877 11.9629 28.457 11.5429C28.0371 11.123 27.6374 10.863 27.0773 10.6453C26.6544 10.481 26.019 10.2855 24.849 10.2321ZM15.0524 8.07223C16.3324 8.01383 16.741 8.00001 20 8.00001C23.259 8.00001 23.6677 8.01383 24.9476 8.07223C26.2249 8.13048 27.0972 8.33335 27.8605 8.62997C28.6496 8.93664 29.3188 9.34696 29.9859 10.0141C30.6531 10.6812 31.0634 11.3504 31.3701 12.1395C31.6667 12.9028 31.8695 13.7751 31.9278 15.0524C31.9862 16.3323 32 16.741 32 19.9999C32 23.259 31.9862 23.6676 31.9278 24.9475C31.8695 26.2248 31.6667 27.0971 31.3701 27.8604C31.0634 28.6495 30.6531 29.3187 29.9859 29.9859C29.3188 30.653 28.6496 31.0633 27.8605 31.3699C27.0972 31.6666 26.2249 31.8695 24.9476 31.9277C23.6677 31.9861 23.259 31.9999 20 31.9999C16.741 31.9999 16.3324 31.9861 15.0524 31.9277C13.7752 31.8695 12.9028 31.6666 12.1396 31.3699C11.3505 31.0633 10.6812 30.653 10.0141 29.9859C9.34696 29.3187 8.93664 28.6495 8.63002 27.8604C8.33336 27.0971 8.13048 26.2248 8.07223 24.9475C8.01383 23.6676 8.00001 23.259 8.00001 19.9999C8.00001 16.741 8.01383 16.3323 8.07223 15.0524C8.13048 13.7751 8.33336 12.9028 8.63002 12.1395C8.93664 11.3504 9.34696 10.6812 10.0141 10.0141C10.6812 9.34696 11.3505 8.93664 12.1396 8.62997C12.9028 8.33335 13.7752 8.13048 15.0524 8.07223ZM20.0056 13.8434C16.6023 13.8434 13.8434 16.6023 13.8434 20.0055C13.8434 23.4088 16.6023 26.1677 20.0056 26.1677C23.4089 26.1677 26.1677 23.4088 26.1677 20.0055C26.1677 16.6023 23.4089 13.8434 20.0056 13.8434ZM20.0056 24.0055C17.7964 24.0055 16.0056 22.2147 16.0056 20.0055C16.0056 17.7964 17.7964 16.0056 20.0056 16.0056C22.2147 16.0056 24.0056 17.7964 24.0056 20.0055C24.0056 22.2147 22.2147 24.0055 20.0056 24.0055ZM26.4108 15.0361C27.2061 15.0361 27.8508 14.3914 27.8508 13.5962C27.8508 12.8009 27.2061 12.1561 26.4108 12.1561C25.6155 12.1561 24.9708 12.8009 24.9708 13.5962C24.9708 14.3914 25.6155 15.0361 26.4108 15.0361Z"/>
+              </svg>
+
+            </a>
+          </div>
+          <div class="contactLinks" id="pinterest">
+            <a href="https://www.pinterest.com/joeyzingarelli" target="_blank">
+              <svg  viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8V32C0 36.4183 3.58172 40 8 40H32C36.4183 40 40 36.4183 40 32V8C40 3.58172 36.4183 0 32 0H8ZM11 17.6118C11 13.6959 14.3024 9 20.8523 9C26.1168 9 29.5796 12.8079 29.5796 16.8955C29.5796 22.304 26.5735 26.3444 22.1416 26.3444C20.6528 26.3444 19.2525 25.5396 18.774 24.6261C18.774 24.6261 17.973 27.8024 17.8042 28.4152C17.2365 30.4748 15.6211 32.5365 15.3471 32.8863C15.3329 32.9044 15.3223 32.9179 15.3156 32.9266C15.2204 33.0511 15.0104 33.0121 14.9879 32.8486C14.9859 32.8336 14.9826 32.8115 14.9784 32.7826C14.9048 32.2781 14.5311 29.7188 15.0291 27.6097C15.2931 26.4899 16.8022 20.0974 16.8022 20.0974C16.8022 20.0974 16.3627 19.2169 16.3627 17.9156C16.3627 15.8725 17.547 14.3477 19.0215 14.3477C20.2748 14.3477 20.8808 15.289 20.8808 16.417C20.8808 17.2209 20.5539 18.2794 20.2097 19.3938C20.0143 20.0262 19.8134 20.6766 19.6635 21.3087C19.3178 22.7712 20.3971 23.9645 21.8394 23.9645C24.4502 23.9645 26.2098 20.6096 26.2098 16.6345C26.2098 13.6141 24.1757 11.3513 20.4736 11.3513C16.2929 11.3513 13.6858 14.4699 13.6858 17.9546C13.6858 19.1553 14.0406 20.0029 14.5956 20.6577C14.8506 20.9592 14.8866 21.0799 14.7944 21.4257C14.7611 21.5526 14.7068 21.7682 14.6529 21.9825C14.5988 22.1976 14.5451 22.4114 14.5131 22.5327C14.4216 22.8822 14.1389 23.0067 13.8231 22.8777C11.8978 22.0924 11 19.9826 11 17.6118Z"/>
+              </svg>
+
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="container newColorBlock" id="work" style="background-color:#C5E3F4;">
+        <div class="row flexRow ">
+          <div class="four columns fadeIn" id="second">
+            <div>
+              <h2><span>Pinterest Mobile Analytics</span></h2>
+            </div>
+            <div>
+            <p>BUSINESS STRATEGY • IA • LAYOUT</p>
+            </div>
+            <div>
+            <p>
+              Businesses are highly valued content creators on Pinterest. Yet the tools given to them were not only clunky and difficult to use, but only existed on the web. I was tasked with adapting the web based analytics tools to the Pinterest mobile app. My work was informed by international quantitative and qualitative research to create a simplified yet powerful end to end experience. The new experience empowers businesses to get the most out of their Pinterest presence, create more content with greater confidence, and invest more readily in advertising.
+
+            </p>
+            <p><a href="#contact">Inquire for full case study</a></p>
+            </div>
+          </div>
+          <div class="eight columns " id="first" style="position: relative;">
+            <img src="img/mobileAnalytics/chartBackground.svg" class="" style="position:absolute; max-width: 120%; max-height:120%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+            <div class="heroImg fadeIn">
+              <div class=" mobileAnalytics1 zoom">
+                <img src="img/mobileAnalytics/01.png" class="stretchedImage">
+              </div>
+              <div class=" mobileAnalytics2">
+                <img src="img/mobileAnalytics/02.png" class="stretchedImage">
+              </div>
+              <div class=" mobileAnalytics3">
+                <img src="img/mobileAnalytics/03.png" class="stretchedImage">
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container newColorBlock" id="work" style="background-color:#bce7dc;">
+        <div class="row flexRow">
+          <div class="eight columns" id="first" style="position: relative;">
+            <img src="img/algorithmControl/background.svg" class="" style="position:absolute; max-width: 120%; max-height: 120%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+            <div class="heroImg">
+              <div class="fadeIn" id="heroImgElement" style="">
+                <div class="algorithmControl1" id="heroImgElement" style="">
+                  <img src="img/algorithmControl/mobileHide.svg" class="stretchedImage">
+                </div>
+                <div class=" algorithmControl2" id="heroImgElement">
+                  <img src="img/algorithmControl/desktopBoards.png" class="stretchedImage">
+                </div>
+                <div class="algorithmControl3" id="heroImgElement">
+                  <img src="img/algorithmControl/mobilePullDown.png " class="stretchedImage">
+                </div>
+                <div class="algorithmControl4" id="heroImgElement">
+                  <img src="img/algorithmControl/mobileHistory.png " class="stretchedImage">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="four columns fadeIn" id="second">
+            <div>
+              <h2><span>Home Feed Algorithm Tuner</span></h2>
+            </div>
+            <div>
+            <p>ETHICAL DESIGN • USER RESEARCH • USER ENGAGEMENT</p>
+            </div>
+            <div>
+            <p>
+              Pinterest shows users an average of X number of images a day. Most of those images are picked by an algorithm that specifically tailors each choice to the user. But what happens when it picks wrong? What happens when the images are irrelevant, or even harmful? Over the course of a year, I created a suite of mechanisms that allows users on Pinterest to supply negative feedback on content and take control of their algorithm. This led to a X reduction in negative reviews relating to bad content and increased user engagement.
+              <br><br> Press:
+            </p>
+            <p><a href="https://onezero.medium.com/how-pinterest-built-one-of-silicon-valleys-most-successful-algorithms-9101afdfd0dd" target="_blank">ONEZERO</a> • <a href="https://www.digitaltrends.com/social-media/pinterest-home-feed-tuner/" target="_blank">DIGITAL TRENDS</a> • <a href="https://www.socialmediatoday.com/news/pinterests-rolling-out-a-new-option-to-give-users-more-control-over-algori/565000/" target="_blank">SOCIAL MEDIA TODAY</a></p>
+            <p><br><a href="#contact">Inquire for full case study</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container newColorBlock" id="work" style="background-color:#FF9393;">
+        <div class="row flexRow ">
+          <div class="four columns fadeIn" id="second">
+            <div>
+              <h2><span>Building and Maintaining Design Systems</span></h2>
+            </div>
+            <div>
+            <p>PUBLIC ENGAGEMENT •  SYSTEMS • LEADERSHIP</p>
+            </div>
+            <div>
+            <p>
+              For a little over a year, I was the main point of contact (with backup from several engineers) for the Pinterest Design System. I learned so much over the course of my time spent empowering a rapidly expanding team of designers. Just before I switched to focusing more on product experiences I gathered my knowledge and presented to an audience of over one hundred at a design systems conference ran by Rethink at LinkedIn’s headquarters in San Francisco.
+            </p>
+            </div>
+          </div>
+          <div class="eight columns " id="first" style="position: relative;">
+            <img src="img/designSystems/background.svg" class="" style="position:absolute; max-width: 100%; max-height:100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+            <div class="heroImg embed-container" style="width:100%; height: 500px;">
+              <iframe title="vimeo-player" src="https://player.vimeo.com/video/280578880"  frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="container newColorBlock" id="work" style="background-color:#C5C4FF;">
+        <div class="row flexRow">
+          <div class="eight columns" id="first">
+            <div class="heroImg">
+              <div class="fadeIn" id="heroImgElement">
+
+              </div>
+            </div>
+          </div>
+          <div class="four columns fadeIn" id="second">
+            <div>
+              <h2><span>DEQ - Digital Publication</span></h2>
+            </div>
+            <div>
+            <p>GRAPHIC DESIGN • LAYOUT • PRINT • BRANDING</p>
+            </div>
+            <div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in
+              fringilla quam, vel sollicitudin libero. Nam ultrices velit et
+              mauris iaculis bibendum. Aliquam egestas, risus vitae auctor
+              ultrices, nibh ipsum feugiat turpis, ut dictum libero justo nec
+              arcu. Mauris dictum, odio quis convallis luctus
+            </p>
+            <p><a href="#contact">Inquire for full case study</a></p>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+    <div>
+      <div class="container newColorBlock" id="about" style="background-color:white;">
+        <div class="row flexRow ">
+          <div class="offset-by-one three columns fadeIn" id="first">
+            <div class="avatar">
+              <img src="img/joeyCutOut.png" class="avatarImage">
+            </div>
+          </div>
+          <div class="offset-by-one six columns fadeIn" id="second" style="position: relative;">
+            <div>
+              <h2><span>About Me</span></h2>
+            </div>
+            <div>
+              <p>
+I’m a designer with experience in everything from print design and identity to product design and research. I held my own as an intern at <a href="https://manualcreative.com/"> Manual </a> in 2015 and went on to be head of my graduating class at the University of Washington in 2016 with a job offer from Pinterest.                </br>
+                </br>
+                While at Pinterest, I drove the expansion and use of the Pinterest Design System that empowered a rapidly expanding team of designers to efficiently create and build experiences across the platform. I systematically clarified every major surface of both the web and mobile application, reducing clutter and driving growth in comprehension, engagement,  and revenue. Later I led the charge to give users control over the mysterious and often incorrect algorithm deciding what content was shown to them. After that, I worked on the Business Analytics team to help businesses understand their performance on Pinterest and drive them to actively engage in our content ecosystem.                </br>
+                </br>
+                Over the past year, I have been travelling the globe with my partner around South America and the US. We had plans to travel to many more places but were thwarted by COVID. Although the year wasn’t what I planned, I am still thankful for the places and cultures I was able to see, and incredibly greatful for the time to center myself and spend time with family and friends.
+                </br>
+                </br>
+                Now I am turning my mind towards activism, mental health, social impact, and climate change. I am actively looking for my next job. If you are interested in talking with me, please don’t hesitate to email me at <a href="mailto:jvzingarelli@gmail.com" target="_blank">jvzingarelli@gmail.com </a>.
+
+
+              </p>
+              <div id="contactRow">
+                <div class="contactLinks" id="email">
+                  <a href="mailto:jvzingarelli@gmail.com" target="_blank">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8V32C0 36.4183 3.58172 40 8 40H32C36.4183 40 40 36.4183 40 32V8C40 3.58172 36.4183 0 32 0H8ZM9.89754 13.1399C10.0812 13.0503 10.2848 13 10.4985 13H29.4795C29.6932 13 29.8969 13.0503 30.0805 13.1399L20.4963 22.0734C20.2572 22.2964 19.7208 22.2964 19.4817 22.0734L9.89754 13.1399ZM9 14.6783C9 14.4016 9.05885 14.1388 9.1639 13.9091L16.2271 20.5L9.1639 26.6451C9.05685 26.4138 9 26.1467 9 25.8671V14.6783ZM23.7509 20.5L30.8141 13.9091C30.9192 14.1388 30.978 14.4016 30.978 14.6783V25.8671C30.978 26.1467 30.9212 26.4138 30.8141 26.6451L23.7509 20.5ZM9.91315 27.4143L17.0076 21.2343L18.8417 22.9388C19.501 23.5537 20.477 23.5537 21.1363 22.9388L22.9704 21.2343L30.0649 27.4143C29.8855 27.4991 29.6871 27.5455 29.4795 27.5455H10.4985C10.291 27.5455 10.0925 27.4991 9.91315 27.4143Z"/>
+                    </svg>
+                  </a>
+                </div>
+                <div class="contactLinks" id="linkedin">
+                  <a href="https://www.linkedin.com/public-profile/in/jzingarelli" target="_blank">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 8C0 3.58172 3.58172 0 8 0H32C36.4183 0 40 3.58172 40 8V32C40 36.4183 36.4183 40 32 40H8C3.58172 40 0 36.4183 0 32V8ZM14.7747 10.2839C14.7747 11.529 13.8267 12.5366 12.3442 12.5366C10.9194 12.5366 9.97132 11.529 10.0007 10.2839C9.97132 8.97828 10.9193 8 12.3726 8C13.8267 8 14.7463 8.97828 14.7747 10.2839ZM10.1199 28.8181V14.3162H14.6271V28.8181H10.1199ZM18.1206 14.3181C18.1802 15.5935 18.2398 17.1356 18.2398 18.9446H18.2416V28.821H22.7489V20.4574C22.7489 20.0412 22.8076 19.6267 22.9268 19.3297C23.2229 18.4999 23.9637 17.6399 25.2097 17.6399C26.8408 17.6399 27.4927 18.9143 27.4927 20.7838V28.821H32V20.219C32 15.9502 29.7757 13.9927 26.8106 13.9927C24.4084 13.9927 22.9258 15.3854 22.3326 16.305H22.2437L22.0356 14.3181H18.1206Z"/>
+                    </svg>
+                  </a>
+                </div>
+                <div class="contactLinks" id="instagram">
+                  <a href="https://www.instagram.com/jzingarelli" target="_blank">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8V32C0 36.4183 3.58172 40 8 40H32C36.4183 40 40 36.4183 40 32V8C40 3.58172 36.4183 0 32 0H8ZM24.849 10.2321C23.5837 10.1744 23.2041 10.1622 20 10.1622C16.7959 10.1622 16.4163 10.1744 15.151 10.2321C13.981 10.2855 13.3456 10.481 12.9228 10.6453C12.3626 10.863 11.9629 11.123 11.543 11.543C11.123 11.9629 10.863 12.3626 10.6453 12.9227C10.481 13.3456 10.2855 13.981 10.2321 15.151C10.1744 16.4163 10.1622 16.7959 10.1622 19.9999C10.1622 23.2041 10.1744 23.5836 10.2321 24.849C10.2855 26.019 10.481 26.6544 10.6453 27.0772C10.863 27.6373 11.1231 28.0371 11.543 28.457C11.9629 28.8769 12.3626 29.1369 12.9228 29.3546C13.3456 29.519 13.981 29.7145 15.151 29.7678C16.4162 29.8255 16.7956 29.8378 20 29.8378C23.2044 29.8378 23.5839 29.8255 24.849 29.7678C26.019 29.7145 26.6544 29.519 27.0773 29.3546C27.6374 29.1369 28.0371 28.8769 28.4571 28.457C28.877 28.0371 29.137 27.6373 29.3547 27.0772C29.519 26.6544 29.7145 26.019 29.7679 24.849C29.8256 23.5836 29.8379 23.2041 29.8379 19.9999C29.8379 16.7959 29.8256 16.4163 29.7679 15.151C29.7145 13.981 29.519 13.3456 29.3547 12.9227C29.137 12.3626 28.877 11.9629 28.457 11.5429C28.0371 11.123 27.6374 10.863 27.0773 10.6453C26.6544 10.481 26.019 10.2855 24.849 10.2321ZM15.0524 8.07223C16.3324 8.01383 16.741 8.00001 20 8.00001C23.259 8.00001 23.6677 8.01383 24.9476 8.07223C26.2249 8.13048 27.0972 8.33335 27.8605 8.62997C28.6496 8.93664 29.3188 9.34696 29.9859 10.0141C30.6531 10.6812 31.0634 11.3504 31.3701 12.1395C31.6667 12.9028 31.8695 13.7751 31.9278 15.0524C31.9862 16.3323 32 16.741 32 19.9999C32 23.259 31.9862 23.6676 31.9278 24.9475C31.8695 26.2248 31.6667 27.0971 31.3701 27.8604C31.0634 28.6495 30.6531 29.3187 29.9859 29.9859C29.3188 30.653 28.6496 31.0633 27.8605 31.3699C27.0972 31.6666 26.2249 31.8695 24.9476 31.9277C23.6677 31.9861 23.259 31.9999 20 31.9999C16.741 31.9999 16.3324 31.9861 15.0524 31.9277C13.7752 31.8695 12.9028 31.6666 12.1396 31.3699C11.3505 31.0633 10.6812 30.653 10.0141 29.9859C9.34696 29.3187 8.93664 28.6495 8.63002 27.8604C8.33336 27.0971 8.13048 26.2248 8.07223 24.9475C8.01383 23.6676 8.00001 23.259 8.00001 19.9999C8.00001 16.741 8.01383 16.3323 8.07223 15.0524C8.13048 13.7751 8.33336 12.9028 8.63002 12.1395C8.93664 11.3504 9.34696 10.6812 10.0141 10.0141C10.6812 9.34696 11.3505 8.93664 12.1396 8.62997C12.9028 8.33335 13.7752 8.13048 15.0524 8.07223ZM20.0056 13.8434C16.6023 13.8434 13.8434 16.6023 13.8434 20.0055C13.8434 23.4088 16.6023 26.1677 20.0056 26.1677C23.4089 26.1677 26.1677 23.4088 26.1677 20.0055C26.1677 16.6023 23.4089 13.8434 20.0056 13.8434ZM20.0056 24.0055C17.7964 24.0055 16.0056 22.2147 16.0056 20.0055C16.0056 17.7964 17.7964 16.0056 20.0056 16.0056C22.2147 16.0056 24.0056 17.7964 24.0056 20.0055C24.0056 22.2147 22.2147 24.0055 20.0056 24.0055ZM26.4108 15.0361C27.2061 15.0361 27.8508 14.3914 27.8508 13.5962C27.8508 12.8009 27.2061 12.1561 26.4108 12.1561C25.6155 12.1561 24.9708 12.8009 24.9708 13.5962C24.9708 14.3914 25.6155 15.0361 26.4108 15.0361Z"/>
+                    </svg>
+
+                  </a>
+                </div>
+                <div class="contactLinks" id="pinterest">
+                  <a href="https://www.pinterest.com/joeyzingarelli" target="_blank">
+                    <svg  viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8V32C0 36.4183 3.58172 40 8 40H32C36.4183 40 40 36.4183 40 32V8C40 3.58172 36.4183 0 32 0H8ZM11 17.6118C11 13.6959 14.3024 9 20.8523 9C26.1168 9 29.5796 12.8079 29.5796 16.8955C29.5796 22.304 26.5735 26.3444 22.1416 26.3444C20.6528 26.3444 19.2525 25.5396 18.774 24.6261C18.774 24.6261 17.973 27.8024 17.8042 28.4152C17.2365 30.4748 15.6211 32.5365 15.3471 32.8863C15.3329 32.9044 15.3223 32.9179 15.3156 32.9266C15.2204 33.0511 15.0104 33.0121 14.9879 32.8486C14.9859 32.8336 14.9826 32.8115 14.9784 32.7826C14.9048 32.2781 14.5311 29.7188 15.0291 27.6097C15.2931 26.4899 16.8022 20.0974 16.8022 20.0974C16.8022 20.0974 16.3627 19.2169 16.3627 17.9156C16.3627 15.8725 17.547 14.3477 19.0215 14.3477C20.2748 14.3477 20.8808 15.289 20.8808 16.417C20.8808 17.2209 20.5539 18.2794 20.2097 19.3938C20.0143 20.0262 19.8134 20.6766 19.6635 21.3087C19.3178 22.7712 20.3971 23.9645 21.8394 23.9645C24.4502 23.9645 26.2098 20.6096 26.2098 16.6345C26.2098 13.6141 24.1757 11.3513 20.4736 11.3513C16.2929 11.3513 13.6858 14.4699 13.6858 17.9546C13.6858 19.1553 14.0406 20.0029 14.5956 20.6577C14.8506 20.9592 14.8866 21.0799 14.7944 21.4257C14.7611 21.5526 14.7068 21.7682 14.6529 21.9825C14.5988 22.1976 14.5451 22.4114 14.5131 22.5327C14.4216 22.8822 14.1389 23.0067 13.8231 22.8777C11.8978 22.0924 11 19.9826 11 17.6118Z"/>
+                    </svg>
+
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="container newColorBlock" id="footer" style="">
+
+      </div>
+    </div>
+    <script src="node_modules/dynamics.js/lib/dynamics.js"></script>
+    <script src="src/index.js"></script>
+  </body>
+</html>
