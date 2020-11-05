@@ -6,40 +6,43 @@ let currentWindowState = null;
 let currentWindowHeight = null;
 let currentWindowWidth = null;
 
-//change height of circle to equal width no matter screen size
-function changeCircleHeight() {
-  bigCircle.style.height = bigCircle.offsetWidth + 'px';
-}
-//make big circle's height equal it's width at runtime
-changeCircleHeight()
-//change circle height whenever window is resized
-window.addEventListener("resize", changeCircleHeight)
+// //change height of circle to equal width no matter screen size
+// function changeCircleHeight() {
+//   bigCircle.style.height = bigCircle.offsetWidth + 'px';
+// }
+// //make big circle's height equal it's width at runtime
+// changeCircleHeight()
+// //change circle height whenever window is resized
+// window.addEventListener("resize", changeCircleHeight)
+//
+// //check current window sized
+// function currentWindowSize() {
+//   currentWindowHeight = window.innerHeight;
+//   currentWindowWidth = window.innerWidth;
+// }
 
-//check current window sized
-function currentWindowSize() {
-  currentWindowHeight = window.innerHeight;
-  currentWindowWidth = window.innerWidth;
-}
+
+
+// //function to center the circle
+// function centerCircle() {
+//   currentWindowSize()
+//   circleBaseTop = (window.innerHeight/2) - (bigCircle.offsetHeight/2);
+//   circleBaseLeft = (window.innerWidth/2) - (bigCircle.offsetWidth/2);
+//
+//   //set the left and top to new values centering the circle
+//   bigCircle.style.left = circleBaseLeft + 'px'
+//   bigCircle.style.top = circleBaseTop +'px';
+//
+// }
+// //center the circle on page load
+// centerCircle()
+// //center the circle when the screen is resized
+// window.addEventListener("resize", centerCircle)
+
 
 //calculate center values for circle
-var circleBaseTop = (window.innerHeight/2) - (bigCircle.offsetHeight/2);
-var circleBaseLeft = (window.innerWidth/2) - (bigCircle.offsetWidth/2);
-
-//function to center the circle
-function centerCircle() {
-  currentWindowSize()
-  circleBaseTop = (window.innerHeight/2) - (bigCircle.offsetHeight/2);
-  circleBaseLeft = (window.innerWidth/2) - (bigCircle.offsetWidth/2);
-
-  //set the left and top to new values centering the circle
-  bigCircle.style.left = circleBaseLeft + 'px'
-  bigCircle.style.top = circleBaseTop +'px';
-
-}
-//center the circle on page load
-centerCircle()
-//center the circle when the screen is resized
-window.addEventListener("resize", centerCircle)
+// var circleBaseTop = (window.innerHeight/2) - (bigCircle.offsetHeight/2);
+// var circleBaseLeft = (window.innerWidth/2) - (bigCircle.offsetWidth/2);
 
 
 //set global mouse coordinate variables
@@ -56,6 +59,16 @@ var x = 0;
 var y = 0;
 var dx = 0;
 var dy = 0;
+
+var arrows = document.getElementsByClassName("arrow")
+
+var arrowsArr = Array.from(arrows);
+
+for (let i=0; i<arrowsArr.length; i++) {
+  console.log(arrowsArr[i].parentElement.getBoundingClientRect());
+  arrowsArr[i].setAttribute("transform", "rotate(34)");
+  console.log(arrowsArr[i].getBoundingClientRect())
+}
 
 function followMouse() {
   //runs this function/animation infinetly
@@ -81,17 +94,40 @@ function followMouse() {
     }
   }
 
-  var distanceFromCenterY = y-window.innerHeight/2;
-  var distanceFromCenterX = x-window.innerWidth/2;
-
-  //move ball in direction of cursor while still anhoring it in the center
-  bigCircle.style.left = circleBaseLeft + distanceFromCenterX/30 + 'px';
-  bigCircle.style.top = circleBaseTop + distanceFromCenterY/30 + 'px';
 
 
 
-  let scrollY = window.scrollY;
-  bigArrow.style.transform = 'rotate('+ twisterMath(x, y,(window.innerWidth/2 ) , (window.innerHeight/2 -scrollY))+'deg)';
+  //rotate each circle
+  for (let i=0; i<arrowsArr.length; i++) {
+    let scrollY = window.scrollY;
+
+    circle = arrowsArr[i];
+    circleParent = circle.parentElement;
+    //calculate center coordinates of each circle based on the svg parent
+    let circleCenterX = circleParent.getBoundingClientRect().left + circleParent.getBoundingClientRect().width/2;
+    let circleCenterY = circleParent.getBoundingClientRect().top + circleParent.getBoundingClientRect().height/2;
+    //rotate each circle based on it's center and current mouse position
+    circle.style.transform = 'rotate('+ twisterMath(x, y,(circleCenterX) , (circleCenterY))+'deg)';
+    //move ball in direction of cursor while still anhoring it in the center
+
+    let distanceFromCenterX = x-circleCenterX;
+    let distanceFromCenterY = y-circleCenterY;
+
+
+
+    circleParent.style.left = distanceFromCenterX/30 + 'px';
+
+      console.log(circle.style.left, circle.style.top)
+  };
+
+  // //move ball in direction of cursor while still anhoring it in the center
+  // bigCircle.style.left = circleBaseLeft + distanceFromCenterX/30 + 'px';
+  // bigCircle.style.top = circleBaseTop + distanceFromCenterY/30 + 'px';
+
+
+
+
+
 };
 
 
