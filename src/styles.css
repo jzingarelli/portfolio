@@ -331,6 +331,14 @@ span {
   flex-direction: row;
 }
 
+#contactRowIntro {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 48px;
+  right: 48px;
+}
+
 .contactLinks {
   width: 40px;
   height: 40px;
@@ -350,6 +358,12 @@ span {
 }
 
 #contactRow div a svg {
+  fill: black;
+  transform: translate3d(0px, 0px, 0px);
+  transition: fill 100ms ease-in, transform 100ms;
+}
+
+#contactRowIntro div a svg {
   fill: black;
   transform: translate3d(0px, 0px, 0px);
   transition: fill 100ms ease-in, transform 100ms;
