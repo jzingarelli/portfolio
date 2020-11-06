@@ -107,26 +107,43 @@ function followMouse() {
     let circleCenterX = circleParent.getBoundingClientRect().left + circleParent.getBoundingClientRect().width/2;
     let circleCenterY = circleParent.getBoundingClientRect().top + circleParent.getBoundingClientRect().height/2;
     //rotate each circle based on it's center and current mouse position
-    circle.style.transform = 'rotate('+ twisterMath(x, y,(circleCenterX) , (circleCenterY))+'deg)';
+    let rotateAmount = twisterMath(x, y,(circleCenterX) , (circleCenterY))-180;
     //move ball in direction of cursor while still anhoring it in the center
+
+
 
     let distanceFromCenterX = x-circleCenterX;
     let distanceFromCenterY = y-circleCenterY;
-
-
-
     circleParent.style.left = distanceFromCenterX/30 + 'px';
 
-      console.log(circle.style.left, circle.style.top)
+    //calculate distance cursor is from center of circle with pythagoras theorem
+    var a = x-circleCenterX;
+    var b = y-circleCenterY;
+
+    var distance = Math.sqrt( a*a + b*b );
+
+    let scaleAmount = distance/10000 - 1
+
+    //check if cursor is hovered over circle
+    let circleLeft = circleParent.getBoundingClientRect().left;
+    let circleRight = circleParent.getBoundingClientRect().right;
+    let circleTop = circleParent.getBoundingClientRect().top;
+    let circleBottom = circleParent.getBoundingClientRect().bottom;
+
+    // if (x > circleLeft && x < circleRight && y > circleTop && y < circleBottom) {
+    //   console.log("circle hovered!")
+    //   circle.parentElement.style.transform = "translateY(-50%) scale(1.1)"
+    //   circle.parentElement.style.zIndex = "-199"
+    // } else {
+    //   circle.parentElement.style.transform = "translateY(-50%)";
+    //
+    // }
+
+    circle.style.transform = `rotate(${rotateAmount}deg) scale(${scaleAmount})`
+
+
+
   };
-
-  // //move ball in direction of cursor while still anhoring it in the center
-  // bigCircle.style.left = circleBaseLeft + distanceFromCenterX/30 + 'px';
-  // bigCircle.style.top = circleBaseTop + distanceFromCenterY/30 + 'px';
-
-
-
-
 
 };
 

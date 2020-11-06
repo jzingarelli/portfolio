@@ -95,17 +95,31 @@ span {
   height: auto;
   border-radius: 50%;
   position: absolute;
-  z-index: -100;
   overflow: hidden;
 }
 
 .centerArrow {
   margin: 0;
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
+  /* top: 50%; */
+  /* -ms-transform: translateY(-50%);
+  transform: translateY(-50%); */
+  transition: transform 100ms ease-in;
+}
+
+#arrowHolder {
+  width:30%;
+  float: left;
+  margin:1.5%;
   top: 50%;
   -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  /* transform: translateY(-50%); */
+}
+
+
+.arrow{
+  transition: scale 100ms ease;
 }
 
 #bigArrow {
@@ -132,16 +146,6 @@ span {
 #bigCircleBackgroundImg{
   width: 100%;
   height: 100%;
-}
-
-#bgVideo{
-  height: 120%;
-  left: 50%;
-  margin: 0 auto;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -2;
 }
 
 #introContainer {
