@@ -1,50 +1,6 @@
 const bigCircle = document.getElementById("bigCircle")
 const bigArrow = document.getElementById("bigArrow")
 
-//set elements to use in next function
-let currentWindowState = null;
-let currentWindowHeight = null;
-let currentWindowWidth = null;
-
-// //change height of circle to equal width no matter screen size
-// function changeCircleHeight() {
-//   bigCircle.style.height = bigCircle.offsetWidth + 'px';
-// }
-// //make big circle's height equal it's width at runtime
-// changeCircleHeight()
-// //change circle height whenever window is resized
-// window.addEventListener("resize", changeCircleHeight)
-//
-// //check current window sized
-// function currentWindowSize() {
-//   currentWindowHeight = window.innerHeight;
-//   currentWindowWidth = window.innerWidth;
-// }
-
-
-
-// //function to center the circle
-// function centerCircle() {
-//   currentWindowSize()
-//   circleBaseTop = (window.innerHeight/2) - (bigCircle.offsetHeight/2);
-//   circleBaseLeft = (window.innerWidth/2) - (bigCircle.offsetWidth/2);
-//
-//   //set the left and top to new values centering the circle
-//   bigCircle.style.left = circleBaseLeft + 'px'
-//   bigCircle.style.top = circleBaseTop +'px';
-//
-// }
-// //center the circle on page load
-// centerCircle()
-// //center the circle when the screen is resized
-// window.addEventListener("resize", centerCircle)
-
-
-//calculate center values for circle
-// var circleBaseTop = (window.innerHeight/2) - (bigCircle.offsetHeight/2);
-// var circleBaseLeft = (window.innerWidth/2) - (bigCircle.offsetWidth/2);
-
-
 //set global mouse coordinate variables
 var xmouse;
 var ymouse;
@@ -130,14 +86,14 @@ function followMouse() {
     let circleTop = circleParent.getBoundingClientRect().top;
     let circleBottom = circleParent.getBoundingClientRect().bottom;
 
-    if (x > circleLeft && x < circleRight && y > circleTop && y < circleBottom) {
-      console.log("circle hovered!")
-      circle.parentElement.parentElement.style.zIndex = "5"
-      circle.parentElement.style.transform = "scale(1.1)"
-    } else {
-      circle.parentElement.parentElement.style.zIndex = "0"
-      circle.parentElement.style.transform = "scale(1)"
-    }
+    // if (x > circleLeft && x < circleRight && y > circleTop && y < circleBottom) {
+    //   console.log("circle hovered!")
+    //   circle.parentElement.parentElement.style.zIndex = "5"
+    //   circle.parentElement.style.transform = "scale(1.1)"
+    // } else {
+    //   circle.parentElement.parentElement.style.zIndex = "0"
+    //   circle.parentElement.style.transform = "scale(1)"
+    // }
 
     circle.style.transform = `rotate(${rotateAmount}deg) scale(${scaleAmount})`
 
