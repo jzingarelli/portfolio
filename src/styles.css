@@ -99,11 +99,9 @@ span {
 }
 
 .centerArrow {
-  margin: 0;
   /* position: absolute; */
-  width: 100%;
-  /* top: 50%; */
-  /* -ms-transform: translateY(-50%);
+  /* top: 50%;
+  -ms-transform: translateY(-50%);
   transform: translateY(-50%); */
   transition: transform 100ms ease-in;
 }
@@ -112,11 +110,29 @@ span {
   width:30%;
   float: left;
   margin:1.5%;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  /* transform: translateY(-50%); */
+  position: absolute;
 }
 
+.circleOne {
+  top: 50%;
+  left: 0%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.circleTwo {
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.circleThree {
+  top: 50%;
+  right: 0%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
 
 .arrow{
   transition: scale 100ms ease;
