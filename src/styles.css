@@ -108,14 +108,12 @@ span {
 
 #arrowHolder {
   width:30%;
-  float: left;
-  margin:1.5%;
   position: absolute;
 }
 
 .circleOne {
   top: 50%;
-  left: 0%;
+  left: 3%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
@@ -129,7 +127,7 @@ span {
 
 .circleThree {
   top: 50%;
-  right: 0%;
+  right: 3%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
@@ -138,13 +136,6 @@ span {
   transition: scale 100ms ease;
 }
 
-#bigArrow {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  position: absolute;
-  border-radius: 1000px;
-}
 
 .vertical-center {
   margin: 0;
