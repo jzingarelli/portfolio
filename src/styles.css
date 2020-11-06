@@ -116,6 +116,7 @@ span {
   left: 3%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  z-index: 5;
 }
 
 .circleTwo {

@@ -130,14 +130,14 @@ function followMouse() {
     let circleTop = circleParent.getBoundingClientRect().top;
     let circleBottom = circleParent.getBoundingClientRect().bottom;
 
-    // if (x > circleLeft && x < circleRight && y > circleTop && y < circleBottom) {
-    //   console.log("circle hovered!")
-    //   circle.parentElement.style.transform = "translateY(-50%) scale(1.1)"
-    //   circle.parentElement.style.zIndex = "-199"
-    // } else {
-    //   circle.parentElement.style.transform = "translateY(-50%)";
-    //
-    // }
+    if (x > circleLeft && x < circleRight && y > circleTop && y < circleBottom) {
+      console.log("circle hovered!")
+      circle.parentElement.parentElement.style.zIndex = "5"
+      circle.parentElement.style.transform = "scale(1.1)"
+    } else {
+      circle.parentElement.parentElement.style.zIndex = "0"
+      circle.parentElement.style.transform = "scale(1)"
+    }
 
     circle.style.transform = `rotate(${rotateAmount}deg) scale(${scaleAmount})`
 
@@ -153,9 +153,6 @@ function twisterMath(x, y, xShapeCenter, yShapeCenter){
   return  Math.atan2(x - xShapeCenter,-(y - yShapeCenter)) *(180 / Math.PI) - 90
 }
 
-var circleColors = ['#C5E3F4', '#BCE7DC', '#F38C8F']
-
-const introParent = document.getElementById('intro');
 
 
 // Returns a function, that, as long as it continues to be invoked, will not
