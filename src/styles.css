@@ -49,9 +49,6 @@ html {
   height: 1000px;
 }
 
-.introText {
-  margin-top: 150px;
-}
 
 h1 {
   font-size: 32px;
@@ -61,7 +58,18 @@ h1 {
 
 h2 {
   font-size: 36px;
+  text-align: center;
 }
+
+#tags {
+  text-align:center;
+  letter-spacing: 0.1em;
+}
+
+#projectDescription {
+  text-align: justify; text-justify: inter-word;
+}
+
 
 h2 span {
   background-color: black;
@@ -108,30 +116,10 @@ span {
 
 #arrowHolder {
   width:30%;
-  position: absolute;
   z-index: 10;
-}
-
-.circleOne {
-  top: 50%;
-  left: 3%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  z-index: 5;
-}
-
-.circleTwo {
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.circleThree {
-  top: 50%;
-  right: 3%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  margin: 1.5%;
+  margin-top: 100px;
+  float: left;
 }
 
 .arrow{
@@ -158,25 +146,34 @@ span {
 }
 
 #introContainer {
-  padding: 48px;
-  min-height: 100vh;
+  float: left;
 }
 
 #intro {
   text-align: center;
+  padding: 0px;
 }
 
-#centerVerticalIntroText {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
+#verticalSpacer {
+  padding-bottom: 24px;
+  float: left;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#centerLine {
+  width: 1px;
+  background-color: black;
+  float: left;
+  margin: auto;
 }
 
 #work {
   /* margin-left: -48px; */
-  padding: 20px;
-  width: 100vw;
+  /* padding: 20px;
+  width: 100vw; */
 }
 
 #titleLeft {
@@ -187,22 +184,26 @@ span {
   margin-top: 80px;
 }
 
-#work {
-  height: auto;
+#inquireButton{
+  margin-top: 40px;
+  background-color: #FF6B70;
+  padding-left: 20px;
+  padding-right: 20px;
+  line-height: 1.5;
+  border-radius: 30px;
+  display: inline-block;
+
+}
+
+
+#inquireButton p {
+  text-decoration: none;
+  color: white;
 }
 
 .heroImg {
   width: 100%;
   position: relative;
-}
-
-.zoom {
-  opacity: 1;
-  transition: opacity 100ms ease-in;
-}
-
-.zoom:hover {
-  opacity: 0;
 }
 
 .fadeIn {
@@ -295,6 +296,13 @@ span {
   max-height: 100%;
 }
 
+.vimeoVideo {
+  /* min-height: 500px; */
+  /* background-color: black; */
+  width: 100%;
+  padding-top: 56%; /* 1:1 Aspect Ratio */
+  position: relative;
+}
 
 .embed-container iframe,
 .embed-container object,
@@ -302,14 +310,13 @@ span {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 80%;
+  height: 80%;
   transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
+  border: 8px solid black;
+
 }
 
-.vimeoVideo {
-  min-height: 200px;
-}
 
 #about {
   padding: 48px;
@@ -355,10 +362,11 @@ span {
 
 #contactRowIntro {
   display: flex;
+  justify-content: center;
   flex-direction: row;
-  position: absolute;
-  bottom: 48px;
-  right: 48px;
+  float: left;
+  width: 100%;
+  padding-bottom: 24px;
 }
 
 .contactLinks {
@@ -414,17 +422,16 @@ span {
 body {
   font-family: "Chivo", sans-serif;
   margin: 0px;
-  background-color: #fff6e4;
+  background-color: #F5EDE2;
   transition: background-color 500ms;
   overflow-x: hidden;
 }
 .container {
   width: 100%;
   position: relative;
-  margin: 0 auto;
+  padding: 48px;
   box-sizing: border-box;
   float: left;
-  overflow:
 }
 .column,
 .columns {
@@ -434,7 +441,7 @@ body {
 }
 #work {
   /* margin-left: -48px; */
-  padding: 24px;
+  /* padding: 24px; */
 }
 
 
@@ -457,27 +464,18 @@ body {
     margin-right: 48px; */
   }
   .container {
-    padding: 0;
+    padding: 48px;
   }
 
   h1 {
-    font-size: 4.5vw;
+    font-size: 32px;
   }
 
   #work {
     /* margin-left: -48px; */
-    padding: 48px;
-  }
-  .vimeoVideo {
-    min-height: 500px;
+    /* padding: 48px; */
   }
 
-  .embed-container iframe,
-  .embed-container object,
-  .embed-container embed {
-    width: 70%;
-    height: 70%;
-  }
 }
 
 /* For devices larger than 800px */
@@ -487,7 +485,7 @@ body {
   }
 
   .container {
-    width: 100vw;
+    padding: 48px;
   }
   .column,
   .columns {
