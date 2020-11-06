@@ -3,7 +3,7 @@ html {
 }
 
 #header {
-  background-color: #fff6e4;
+  background-color: #F5EDE2;
   height: 70px;
   position: fixed;
   z-index: 10;
@@ -186,7 +186,7 @@ span {
 
 #inquireButton{
   margin-top: 40px;
-  background-color: #FF6B70;
+  background-color: #fff;
   padding-left: 20px;
   padding-right: 20px;
   line-height: 1.5;
@@ -198,7 +198,8 @@ span {
 
 #inquireButton p {
   text-decoration: none;
-  color: white;
+  color: black;
+  font-size: 14px;
 }
 
 .heroImg {
