@@ -20,12 +20,6 @@ var arrows = document.getElementsByClassName("arrow")
 
 var arrowsArr = Array.from(arrows);
 
-for (let i=0; i<arrowsArr.length; i++) {
-  console.log(arrowsArr[i].parentElement.getBoundingClientRect());
-  arrowsArr[i].setAttribute("transform", "rotate(34)");
-  console.log(arrowsArr[i].getBoundingClientRect())
-}
-
 function followMouse() {
   //runs this function/animation infinetly
   window.requestAnimationFrame(followMouse);
@@ -53,7 +47,7 @@ function followMouse() {
 
 
 
-  //rotate each circle
+  //rotate each circle + move front and back bits
   for (let i=0; i<arrowsArr.length; i++) {
     let scrollY = window.scrollY;
 
@@ -98,7 +92,20 @@ function followMouse() {
 
     circle.style.transform = `rotate(${rotateAmount}deg) scale(${scaleAmount})`
 
+    //move front and back bits
+    var bitsBack = document.getElementById("bitsBack")
+    var bitsFront = document.getElementById("bitsFront")
 
+    let disctanceFromScreenCenterX = (x-window.innerWidth/2)/600;
+    let disctanceFromScreenCenterY = (y-window.innerHeight/2)/70;
+
+    console.log(disctanceFromScreenCenterX)
+
+    bitsBack.style.left = `${disctanceFromScreenCenterX + 50}%`;
+    bitsBack.style.top = `${disctanceFromScreenCenterY + 125 - scrollY/10}px`;
+
+    bitsFront.style.left = `${50 - disctanceFromScreenCenterX}%`;
+    bitsFront.style.top = `${150 - disctanceFromScreenCenterY - scrollY/15}px`;
 
   };
 
