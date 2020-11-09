@@ -20,6 +20,10 @@ var arrows = document.getElementsByClassName("arrow")
 
 var arrowsArr = Array.from(arrows);
 
+heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
+
+console.log(heroImageBackgrounds)
+
 function followMouse() {
   //runs this function/animation infinetly
   window.requestAnimationFrame(followMouse);
@@ -57,7 +61,7 @@ function followMouse() {
     let circleCenterX = circleParent.getBoundingClientRect().left + circleParent.getBoundingClientRect().width/2;
     let circleCenterY = circleParent.getBoundingClientRect().top + circleParent.getBoundingClientRect().height/2;
     //rotate each circle based on it's center and current mouse position
-    let rotateAmount = twisterMath(x, y,(circleCenterX) , (circleCenterY))-180;
+    let rotateAmount = twisterMath(x, y,(circleCenterX) , (circleCenterY));
     //move ball in direction of cursor while still anhoring it in the center
 
 
@@ -74,23 +78,8 @@ function followMouse() {
 
     let scaleAmount = distance/10000 - 1
 
-    // //check if cursor is hovered over circle
-    // let circleLeft = circleParent.getBoundingClientRect().left;
-    // let circleRight = circleParent.getBoundingClientRect().right;
-    // let circleTop = circleParent.getBoundingClientRect().top;
-    // let circleBottom = circleParent.getBoundingClientRect().bottom;
-    //
-    // //expand circle if hovered
-    // if (x > circleLeft && x < circleRight && y > circleTop && y < circleBottom) {
-    //   console.log("circle hovered!")
-    //   circle.parentElement.parentElement.style.zIndex = "0"
-    //   circle.parentElement.style.transform = "scale(1.1)"
-    // } else {
-    //   circle.parentElement.parentElement.style.zIndex = "5"
-    //   circle.parentElement.style.transform = "scale(1)"
-    // }
 
-    circle.style.transform = `rotate(${rotateAmount}deg) scale(${scaleAmount})`
+    circle.style.transform = `rotate(${rotateAmount}deg)`
 
     //move front and back bits
     var bitsBack = document.getElementById("bitsBack")
@@ -99,13 +88,18 @@ function followMouse() {
     let disctanceFromScreenCenterX = (x-window.innerWidth/2)/600;
     let disctanceFromScreenCenterY = (y-window.innerHeight/2)/70;
 
-    console.log(disctanceFromScreenCenterX)
-
     bitsBack.style.left = `${disctanceFromScreenCenterX + 50}%`;
     bitsBack.style.top = `${disctanceFromScreenCenterY + 125 - scrollY/10}px`;
 
     bitsFront.style.left = `${50 - disctanceFromScreenCenterX}%`;
     bitsFront.style.top = `${150 - disctanceFromScreenCenterY - scrollY/15}px`;
+
+
+    // move portfolio piece graphic backgrounds and her images
+    for (let i=0; i < heroImageBackgrounds.length; i++) {
+      heroImageBackgrounds[i].style.left = `${50 - disctanceFromScreenCenterX/2}%`
+      heroImageBackgrounds[i].style.top = `${50 - disctanceFromScreenCenterY/2}%`
+    }
 
   };
 
