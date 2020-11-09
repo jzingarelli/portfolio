@@ -80,20 +80,21 @@ function followMouse() {
 
     let scaleAmount = distance/10000 - 1
 
-    //check if cursor is hovered over circle
-    let circleLeft = circleParent.getBoundingClientRect().left;
-    let circleRight = circleParent.getBoundingClientRect().right;
-    let circleTop = circleParent.getBoundingClientRect().top;
-    let circleBottom = circleParent.getBoundingClientRect().bottom;
-
-    if (x > circleLeft && x < circleRight && y > circleTop && y < circleBottom) {
-      console.log("circle hovered!")
-      circle.parentElement.parentElement.style.zIndex = "0"
-      circle.parentElement.style.transform = "scale(1.1)"
-    } else {
-      circle.parentElement.parentElement.style.zIndex = "5"
-      circle.parentElement.style.transform = "scale(1)"
-    }
+    // //check if cursor is hovered over circle
+    // let circleLeft = circleParent.getBoundingClientRect().left;
+    // let circleRight = circleParent.getBoundingClientRect().right;
+    // let circleTop = circleParent.getBoundingClientRect().top;
+    // let circleBottom = circleParent.getBoundingClientRect().bottom;
+    //
+    // //expand circle if hovered
+    // if (x > circleLeft && x < circleRight && y > circleTop && y < circleBottom) {
+    //   console.log("circle hovered!")
+    //   circle.parentElement.parentElement.style.zIndex = "0"
+    //   circle.parentElement.style.transform = "scale(1.1)"
+    // } else {
+    //   circle.parentElement.parentElement.style.zIndex = "5"
+    //   circle.parentElement.style.transform = "scale(1)"
+    // }
 
     circle.style.transform = `rotate(${rotateAmount}deg) scale(${scaleAmount})`
 

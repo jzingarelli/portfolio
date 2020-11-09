@@ -74,18 +74,21 @@ h2 {
 h2 span {
   background-color: black;
   color: white;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   padding-left: 8px;
   padding-right: 8px;
-  line-height: 1.7;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
 
-span {
-  cursor: none;
-  cursor: default;
+#introParagraph span {
+  /* padding-top: 2px;
+  padding-bottom: 2px; */
+  padding-left: 4px;
+  padding-right: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 #bigCircleHolder {
@@ -124,6 +127,7 @@ span {
 
 .arrow{
   transition: scale 100ms ease;
+  border-radius:100%;
 }
 
 
@@ -149,9 +153,32 @@ span {
   float: left;
 }
 
+#helloIntro {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-family: Chivo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 164px;
+  line-height: 195px;
+  text-align: center;
+
+  color: #000000;
+
+}
+
 #intro {
   text-align: center;
   padding: 0px;
+}
+
+
+#introParagraph {
+  text-align: center;
+  padding: 0px;
+  font-size: 24px;
 }
 
 #verticalSpacer {
