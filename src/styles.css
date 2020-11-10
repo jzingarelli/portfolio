@@ -44,31 +44,14 @@ html {
   text-decoration: none;
 }
 
-.scroll {
-  width: 80px;
-  height: 1000px;
-}
 
 
-h1 {
-  font-size: 32px;
-  cursor: default;
-  /* color: #fff; */
-}
-
-h2 {
-  font-size: 36px;
-  text-align: center;
-}
 
 #tags {
   text-align:center;
   color: rgba(0, 0, 0, 0);
 }
 
-#projectDescription {
-  text-align: justify; text-justify: inter-word;
-}
 
 
 h2 span {
@@ -124,23 +107,16 @@ h2 span {
 #arrowHolder {
   width:30%;
   z-index: 10;
-  margin: 1.5%;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
   margin-top: 175px;
+  margin-bottom: 48px;
   float: left;
 }
 
 .arrow{
   transition: scale 100ms ease;
   border-radius:100%;
-}
-
-
-.vertical-center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
 }
 
 #arrowImg{
@@ -184,10 +160,11 @@ h2 span {
   text-align: center;
   padding: 0px;
   font-size: 24px;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
 }
 
 #verticalSpacer {
-  padding-bottom: 24px;
   float: left;
   width: 100%;
   display: flex;
@@ -335,6 +312,7 @@ h2 span {
   width: 100%;
   padding-top: 56%; /* 1:1 Aspect Ratio */
   position: relative;
+  margin:
 }
 
 .embed-container iframe,
@@ -350,17 +328,13 @@ h2 span {
 
 }
 
-
-#about {
-  padding: 48px;
-  width: 100vw;
-}
-
 .avatar {
   border-radius: 100%;
-  overflow: hidden;
-  background-color: #fff6e4;
 
+  background-color: #A0DDFF;
+  width:66%;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 
@@ -397,15 +371,14 @@ h2 span {
   display: flex;
   justify-content: center;
   flex-direction: row;
-  float: left;
+  padding-top: 24px;
   width: 100%;
-  padding-bottom: 24px;
 }
 
 .contactLinks {
   width: 40px;
   height: 40px;
-  padding-right: 24px;
+  padding: 12px;
   padding-top: 20px;
   transform: translate(0px, 0px);
   transition: transform 100ms ease-out, scale 100ms;
@@ -435,19 +408,19 @@ h2 span {
 
 
 #email a svg:hover {
-  fill: #C73631;
+  fill: #FFD748;
 }
 
 #linkedin a svg:hover {
-  fill: #235FA4;
+  fill: #A0DDFF;
 }
 
 #instagram a svg:hover {
-  fill: #AD1778;
+  fill: #B182FF;
 }
 
 #pinterest a svg:hover {
-  fill: #E60023;
+  fill: #FF6B70;
 }
 
 /* Grid
@@ -459,10 +432,21 @@ body {
   transition: background-color 500ms;
   overflow-x: hidden;
 }
+
+h2 {
+  font-size: 28px;
+  text-align: center;
+}
+
+
+#projectDescription {
+  text-align: left; text-justify: inter-word;
+}
+
 .container {
   width: 100%;
   position: relative;
-  padding: 48px;
+  padding: 20px;
   box-sizing: border-box;
   float: left;
 }
@@ -478,18 +462,6 @@ body {
 }
 
 
-/* Use flex to reorder elements in containers when small */
-.flexRow {
-  display: flex;
-  flex-flow: column;
-}
-#first {
-  order: 1;
-}
-#second {
-  order: 2;
-}
-
 /* For devices larger than 500px */
 @media (min-width: 500px) {
   body {
@@ -500,19 +472,27 @@ body {
     padding: 48px;
   }
 
-  h1 {
-    font-size: 32px;
+  h2 {
+    font-size: 36px;
+    text-align: center;
   }
 
-  #work {
-    /* margin-left: -48px; */
-    /* padding: 48px; */
+  #projectDescription {
+    text-align: justify; text-justify: inter-word;
+  }
+
+  .avatar {
+    width:66%;
   }
 
 }
 
 /* For devices larger than 800px */
 @media (min-width: 800px) {
+
+  .avatar {
+    width:100%;
+  }
   .flexRow {
     display: inline;
   }
