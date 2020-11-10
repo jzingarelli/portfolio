@@ -63,7 +63,7 @@ h2 {
 
 #tags {
   text-align:center;
-  letter-spacing: 0.1em;
+  color: rgba(0, 0, 0, 0);
 }
 
 #projectDescription {
@@ -78,15 +78,19 @@ h2 span {
   padding-bottom: 2px;
   padding-left: 8px;
   padding-right: 8px;
+  line-height: 1.5em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
 
-#introParagraph span {
-  /* padding-top: 2px;
-  padding-bottom: 2px; */
-  padding-left: 4px;
-  padding-right: 4px;
+.highlight span {
+  color: black;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 100px;
+  line-height: 2em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
