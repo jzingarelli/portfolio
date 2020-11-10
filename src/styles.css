@@ -109,9 +109,27 @@ h2 span {
   z-index: 10;
   margin-left: 1.5%;
   margin-right: 1.5%;
-  margin-top: 175px;
+  margin-top: 150px;
   margin-bottom: 48px;
   float: left;
+}
+
+
+#helloIntro {
+  position: absolute;
+  left: 50%;
+  margin-top: 150px;
+  transform: translateX(-50%);
+
+  font-family: Chivo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 11vw;
+  line-height: 1.1em;
+  text-align: center;
+
+  color: #000000;
+
 }
 
 .arrow{
@@ -136,7 +154,7 @@ h2 span {
 #helloIntro {
   position: absolute;
   left: 50%;
-  margin-top: 175px;
+  margin-top: 150px;
   transform: translateX(-50%);
 
   font-family: Chivo;
@@ -485,10 +503,25 @@ h2 {
     width:66%;
   }
 
+
 }
 
 /* For devices larger than 800px */
 @media (min-width: 800px) {
+
+
+    #arrowHolder {
+      margin-top: 175px;
+
+    }
+
+
+    #helloIntro {
+
+      margin-top: 175px;
+
+
+    }
 
   .avatar {
     width:100%;
