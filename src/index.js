@@ -77,16 +77,7 @@ function followMouse() {
     heroImageBackgrounds[i].style.left = `${50 - disctanceFromScreenCenterX/2}%`
     heroImageBackgrounds[i].style.top = `${50 - disctanceFromScreenCenterY/2}%`
 
-<<<<<<< HEAD
-    // move portfolio piece graphic backgrounds
-    for (let i=0; i < heroImageBackgrounds.length; i++) {
-      heroImageBackgrounds[i].style.left = `${50 - disctanceFromScreenCenterX/2}%`
-      heroImageBackgrounds[i].style.top = `${50 - disctanceFromScreenCenterY/2}%`
-      // console.log(heroImageBackgrounds[i].style.top)
-    }
-=======
   }
->>>>>>> fixingBackgroudSVGMouseAnimation
 
 
 };
