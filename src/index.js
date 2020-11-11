@@ -22,8 +22,6 @@ var arrowsArr = Array.from(arrows);
 
 heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
 
-console.log(heroImageBackgrounds)
-
 function followMouse() {
   //runs this function/animation infinetly
   window.requestAnimationFrame(followMouse);
@@ -92,10 +90,11 @@ function followMouse() {
     bitsFront.style.top = `${150 - disctanceFromScreenCenterY - scrollY/15}px`;
 
 
-    // move portfolio piece graphic backgrounds and her images
+    // move portfolio piece graphic backgrounds
     for (let i=0; i < heroImageBackgrounds.length; i++) {
       heroImageBackgrounds[i].style.left = `${50 - disctanceFromScreenCenterX/2}%`
       heroImageBackgrounds[i].style.top = `${50 - disctanceFromScreenCenterY/2}%`
+      // console.log(heroImageBackgrounds[i].style.top)
     }
 
   };
@@ -162,21 +161,3 @@ function checkFadeIn(e) {
 }
 
 window.addEventListener('scroll', debounce(checkFadeIn, 50));
-
-
-//change header background color to match color block it's hovering
-const colorBlocks = document.querySelectorAll(".newColorBlock")
-const header = document.getElementById('header')
-
-function changeHeaderColor(e) {
-  colorBlocks.forEach(colorBlock => {
-    //get positions of colorBlock
-    let blockPosition = colorBlock.getBoundingClientRect()
-    if (blockPosition.y-70 < 0 && blockPosition.y > -blockPosition.height && header.style.backgroundColor != colorBlock.style.backgroundColor) {
-      header.style.backgroundColor = colorBlock.style.backgroundColor
-    }
-  });
-
-}
-
-window.addEventListener('scroll', debounce(changeHeaderColor));
