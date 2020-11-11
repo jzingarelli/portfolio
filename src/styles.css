@@ -48,9 +48,12 @@ h2 span {
   padding-left: 8px;
   padding-right: 8px;
   border-radius: 100px;
-  line-height: 2em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+
+.doubleSpace {
+  line-height: 2em;
 }
 
 #bigCircleHolder {
@@ -153,8 +156,9 @@ h2 span {
   text-align: center;
   padding: 0px;
   font-size: 24px;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
+  line-height: 1.4em;
+  max-width: 440px;
+  margin: auto;
 }
 
 #verticalSpacer {
