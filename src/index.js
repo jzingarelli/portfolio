@@ -48,9 +48,6 @@ function followMouse() {
     }
   }
 
-
-
-
   //rotate each circle + move front and back bits
   for (let i=0; i<arrowsArr.length; i++) {
     let scrollY = window.scrollY;
@@ -105,6 +102,7 @@ function followMouse() {
 
 };
 
+followMouse();
 
 
 function twisterMath(x, y, xShapeCenter, yShapeCenter){
