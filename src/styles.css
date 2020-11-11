@@ -2,50 +2,25 @@ html {
   scroll-behavior: smooth;
 }
 
-#header {
-  background-color: #F5EDE2;
-  height: 70px;
-  position: fixed;
-  z-index: 10;
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  transition: background-color 100ms ease-in;
+/* unvisited link */
+a:link {
+  color: #B182FF;
 }
 
-.name {
-  float: left;
+/* visited link */
+a:visited {
+  color: #B182FF;
 }
 
-.leftNav {
-  flex-grow: 18;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  margin-left: 32px;
-
+/* mouse over link */
+a:hover {
+  color: #B182FF;
 }
 
-.rightNav {
-  float: right;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  margin-right: 32px;
+/* selected link */
+a:active {
+  color: #B182FF;
 }
-
-.navItem {
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-.rightNav a {
-  text-decoration: none;
-}
-
-
-
 
 #tags {
   text-align:center;
