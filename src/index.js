@@ -7,8 +7,8 @@ var ymouse;
 
 //refresh mouse coordinates anytime mouse is moved
 window.addEventListener("mousemove", function(e) {
-  xmouse = e.clientX || e.pageX;
-  ymouse = e.clientY || e.pageY;
+  xmouse = e.clientX
+  ymouse = e.clientY
 });
 
 var x = 0;
@@ -25,7 +25,6 @@ heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
 function followMouse() {
   //runs this function/animation infinetly
   window.requestAnimationFrame(followMouse);
-
   //only returns true on page load before cursor has been moved
   if(!x || !y) {
     x = xmouse;
@@ -57,47 +56,38 @@ function followMouse() {
     let circleCenterY = circleParent.getBoundingClientRect().top + circleParent.getBoundingClientRect().height/2;
     //rotate each circle based on it's center and current mouse position
     let rotateAmount = twisterMath(x, y,(circleCenterX) , (circleCenterY));
-    //move ball in direction of cursor while still anhoring it in the center
-
-
-
-    let distanceFromCenterX = x-circleCenterX;
-    let distanceFromCenterY = y-circleCenterY;
-    circleParent.style.left = distanceFromCenterX/30 + 'px';
-
-    //calculate distance cursor is from center of circle with pythagoras theorem
-    var a = x-circleCenterX;
-    var b = y-circleCenterY;
-
-    var distance = Math.sqrt( a*a + b*b );
-
-    let scaleAmount = distance/10000 - 1
-
-
     circle.style.transform = `rotate(${rotateAmount}deg)`
+  };
 
-    //move front and back bits
-    var bitsBack = document.getElementById("bitsBack")
-    var bitsFront = document.getElementById("bitsFront")
+  //get mouse distance from center of screen
+  let disctanceFromScreenCenterX = (x-window.innerWidth/2)/600;
+  let disctanceFromScreenCenterY = (y - window.innerHeight/2)/70;
 
-    let disctanceFromScreenCenterX = (x-window.innerWidth/2)/600;
-    let disctanceFromScreenCenterY = (y-window.innerHeight/2)/70;
+  //move back bits
+  var bitsBack = document.getElementById("bitsBack")
+  var bitsFront = document.getElementById("bitsFront")
+  bitsBack.style.left = `${disctanceFromScreenCenterX + 50}%`;
+  bitsBack.style.top = `${disctanceFromScreenCenterY + 125 - scrollY/10}px`;
+  //move front bits
+  bitsFront.style.left = `${50 - disctanceFromScreenCenterX}%`;
+  bitsFront.style.top = `${150 - disctanceFromScreenCenterY - scrollY/15}px`;
 
-    bitsBack.style.left = `${disctanceFromScreenCenterX + 50}%`;
-    bitsBack.style.top = `${disctanceFromScreenCenterY + 125 - scrollY/10}px`;
+  // move portfolio piece graphic backgrounds and her images
+  for (let i=0; i < heroImageBackgrounds.length; i++) {
+    heroImageBackgrounds[i].style.left = `${50 - disctanceFromScreenCenterX/2}%`
+    heroImageBackgrounds[i].style.top = `${50 - disctanceFromScreenCenterY/2}%`
 
-    bitsFront.style.left = `${50 - disctanceFromScreenCenterX}%`;
-    bitsFront.style.top = `${150 - disctanceFromScreenCenterY - scrollY/15}px`;
-
-
+<<<<<<< HEAD
     // move portfolio piece graphic backgrounds
     for (let i=0; i < heroImageBackgrounds.length; i++) {
       heroImageBackgrounds[i].style.left = `${50 - disctanceFromScreenCenterX/2}%`
       heroImageBackgrounds[i].style.top = `${50 - disctanceFromScreenCenterY/2}%`
       // console.log(heroImageBackgrounds[i].style.top)
     }
+=======
+  }
+>>>>>>> fixingBackgroudSVGMouseAnimation
 
-  };
 
 };
 
