@@ -25,7 +25,6 @@ heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
 function followMouse() {
   //runs this function/animation infinetly
   window.requestAnimationFrame(followMouse);
-  console.log(ymouse);
   //only returns true on page load before cursor has been moved
   if(!x || !y) {
     x = xmouse;
