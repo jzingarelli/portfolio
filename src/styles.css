@@ -1,5 +1,7 @@
 html {
   scroll-behavior: smooth;
+  margin: 0 auto;
+  max-width: 1600px;
 }
 
 /* unvisited link */
@@ -95,6 +97,7 @@ h2 span {
 
 #helloIntro {
   position: absolute;
+  max-width: 1600px;
   left: 50%;
   margin-top: 150px;
   transform: translateX(-50%);
@@ -127,23 +130,6 @@ h2 span {
 
 #introContainer {
   float: left;
-}
-
-#helloIntro {
-  position: absolute;
-  left: 50%;
-  margin-top: 150px;
-  transform: translateX(-50%);
-
-  font-family: Chivo;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 11vw;
-  line-height: 1.1em;
-  text-align: center;
-
-  color: #000000;
-
 }
 
 #intro {
@@ -444,7 +430,7 @@ h2 {
 .container {
   width: 100%;
   position: relative;
-  padding: 20px;
+  padding: 0px;
   box-sizing: border-box;
   float: left;
 }
@@ -466,9 +452,7 @@ h2 {
     /* margin-left: 48px;
     margin-right: 48px; */
   }
-  .container {
-    padding: 48px;
-  }
+ 
 
   h2 {
     font-size: 36px;
@@ -485,6 +469,17 @@ h2 {
 
 
 }
+
+/* For devices larger than 1600px */
+@media (min-width: 1600px) {
+
+
+  #helloIntro {
+
+    font-size: 175px;
+
+
+  }
 
 /* For devices larger than 800px */
 @media (min-width: 800px) {
@@ -510,9 +505,6 @@ h2 {
     display: inline;
   }
 
-  .container {
-    padding: 48px;
-  }
   .column,
   .columns {
     margin-left: 4%;
