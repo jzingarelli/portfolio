@@ -430,7 +430,7 @@ h2 {
 .container {
   width: 100%;
   position: relative;
-  padding: 0px;
+  padding: 16px;
   box-sizing: border-box;
   float: left;
 }
@@ -470,16 +470,6 @@ h2 {
 
 }
 
-/* For devices larger than 1600px */
-@media (min-width: 1600px) {
-
-
-  #helloIntro {
-
-    font-size: 175px;
-
-
-  }
 
 /* For devices larger than 800px */
 @media (min-width: 800px) {
@@ -624,3 +614,15 @@ h2 {
     margin-left: 52%;
   }
 }
+
+
+/* For devices larger than 1600px */
+@media (min-width: 1600px) {
+
+
+  #helloIntro {
+
+    font-size: 175px;
+
+
+  }
