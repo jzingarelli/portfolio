@@ -24,27 +24,33 @@
     rel="stylesheet"
     />
 
+    <link rel="stylesheet" type="text/css" href="src/normalize.css" />
     <link rel="stylesheet" type="text/css" href="src/styles.css" />
   </head>
 
   <body>
+    <div id="funBar" aria-label="Site controls">
+      <button id="toggleTheme" aria-pressed="false" title="Toggle theme">🌗</button>
+      <button id="toggleParty" aria-pressed="false" title="Party mode">🎉</button>
+      <button id="toggleMotion" aria-pressed="false" title="Reduce motion">🌀</button>
+    </div>
     <div>
       <img id="bitsBack" src="img/bitsBack.svg" style="position:absolute; width: 94%; max-width: 1600px; top: 125px; left: 50%;transform: translateX(-50%); z-index:-10;">
-      <div  id="arrowHolder" class="circleOne">
+      <div  class="arrowHolder circleOne">
         <div class="centerArrow">
           <svg  class="arrow" style="background-color:#FFC01D;" viewBox="0 0 567 567" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path  fill-rule="evenodd" clip-rule="evenodd" d="M283.5 567C440.073 567 567 440.073 567 283.5C567 126.927 440.073 0 283.5 0C126.927 0 0 126.927 0 283.5C0 440.073 126.927 567 283.5 567ZM323.676 254.559L237.952 171.271L283.5 127L444 283L283.5 439L237.952 394.729L323.676 311.441H123V254.559H323.676Z" fill="#FFD748"/>
           </svg>
         </div>
       </div>
-      <div id="arrowHolder" class="circleTwo">
+      <div class="arrowHolder circleTwo">
         <div class="centerArrow">
           <svg class="arrow" style="background-color:#EB3D3D;" viewBox="0 0 567 567" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M283.5 567C440.073 567 567 440.073 567 283.5C567 126.927 440.073 0 283.5 0C126.927 0 0 126.927 0 283.5C0 440.073 126.927 567 283.5 567ZM323.676 254.559L237.952 171.271L283.5 127L444 283L283.5 439L237.952 394.729L323.676 311.441H123V254.559H323.676Z" fill="#FF6B70"/>
           </svg>
         </div>
       </div>
-      <div id="arrowHolder" class="circleThree">
+      <div class="arrowHolder circleThree">
         <div class="centerArrow" >
           <svg class="arrow" style="background-color:#63C7FF;" viewBox="0 0 567 567" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M283.5 567C440.073 567 567 440.073 567 283.5C567 126.927 440.073 0 283.5 0C126.927 0 0 126.927 0 283.5C0 440.073 126.927 567 283.5 567ZM323.676 254.559L237.952 171.271L283.5 127L444 283L283.5 439L237.952 394.729L323.676 311.441H123V254.559H323.676Z" fill="#A0DDFF"/>
@@ -99,26 +105,26 @@
           <img class="heroImagesBackground" src="img/headspaceDarkMode/background.svg" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
           <div id="heroImages" class="offset-by-one ten columns ">
             <div class="heroImg fadeIn" style="display: flex; justify-content: center; gap: 24px;">
-              <div class=" darkModeImg1">
+              <div class=" darkModeImg1" data-tilt>
                 <img src="img/headspaceDarkMode/light-homescreen.png" class="stretchedImage">
               </div>
-              <div class="darkModeImg2">
+              <div class="darkModeImg2" data-tilt>
                 <img src="img/headspaceDarkMode/light-player.png" class="stretchedImage">
               </div>
-              <div class="darkModeImg3">
+              <div class="darkModeImg3" data-tilt>
                 <img src="img/headspaceDarkMode/light-meditate.png" class="stretchedImage">
               </div>
             </div>
           </div>
-          <div id="heroImages" class="offset-by-one ten columns clip-animation darkModeOverlap">
+          <div id="heroImages" class="offset-by-one ten columns darkModeOverlap">
             <div class="heroImg fadeIn" style="display: flex; justify-content: center; gap: 24px;">
-              <div class=" darkModeImg1">
+              <div class=" darkModeImg1" data-tilt>
                 <img src="img/headspaceDarkMode/dark-homescreen.png" class="stretchedImage ">
               </div>
-              <div class="darkModeImg2">
+              <div class="darkModeImg2" data-tilt>
                 <img src="img/headspaceDarkMode/dark-player.png" class="stretchedImage ">
               </div>
-              <div class="darkModeImg3">
+              <div class="darkModeImg3" data-tilt>
                 <img src="img/headspaceDarkMode/dark-meditate.png" class="stretchedImage ">
               </div>
             </div>
@@ -165,13 +171,13 @@
           <img class="heroImagesBackground" src="img/mobileAnalytics/chartBackground.svg" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
           <div id="heroImages" class="offset-by-one ten columns ">
             <div class="heroImg fadeIn">
-              <div class=" mobileAnalytics1">
+              <div class=" mobileAnalytics1" data-tilt>
                 <img src="img/mobileAnalytics/analytics-base-view@2x.png" class="stretchedImage">
               </div>
-              <div class=" mobileAnalytics2">
+              <div class=" mobileAnalytics2" data-tilt>
                 <img src="img/mobileAnalytics/line-chart-split@2x.png" class="stretchedImage">
               </div>
-              <div class=" mobileAnalytics3">
+              <div class=" mobileAnalytics3" data-tilt>
                 <img src="img/mobileAnalytics/top-pins@2x.png" class="stretchedImage">
               </div>
             </div>
@@ -218,16 +224,16 @@
           <div class="offset-by-one ten columns ">
             <div class="heroImg">
               <div class=" fadeIn" id="heroImgElement" style="">
-                <div class="algorithmControl1" id="heroImgElement" style="z-index:20;">
+                <div class="algorithmControl1" id="heroImgElement" style="z-index:20;" data-tilt>
                   <img src="img/algorithmControl/contextual-hide.png" class="stretchedImage">
                 </div>
-                <div class=" algorithmControl2" id="heroImgElement">
+                <div class=" algorithmControl2" id="heroImgElement" data-tilt>
                   <img src="img/algorithmControl/tune-feed-web.png" class="stretchedImage">
                 </div>
-                <div class="algorithmControl3" id="heroImgElement">
+                <div class="algorithmControl3" id="heroImgElement" data-tilt>
                   <img src="img/algorithmControl/pull-to-tune.png " class="stretchedImage">
                 </div>
-                <div class="algorithmControl4" id="heroImgElement">
+                <div class="algorithmControl4" id="heroImgElement" data-tilt>
                   <img src="img/algorithmControl/tune-history.png " class="stretchedImage">
                 </div>
               </div>

@@ -20,11 +20,15 @@ var arrows = document.getElementsByClassName("arrow")
 
 var arrowsArr = Array.from(arrows);
 
-heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
+var heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
 
 function followMouse() {
   //runs this function/animation infinetly
   window.requestAnimationFrame(followMouse);
+  // Respect reduced motion preference by skipping heavy work
+  if (document.documentElement && document.documentElement.dataset.reducedMotion === 'true') {
+    return;
+  }
   //only returns true on page load before cursor has been moved
   if(!x || !y) {
     x = xmouse;
@@ -115,6 +119,9 @@ function debounce(func, wait, immediate) {
 const fadeInElements = document.querySelectorAll('.fadeIn')
 
 function checkFadeIn(e) {
+  if (document.documentElement && document.documentElement.dataset.reducedMotion === 'true') {
+    return;
+  }
 
   fadeInElements.forEach(fadeInElement => {
     //half image height
@@ -142,3 +149,141 @@ function checkFadeIn(e) {
 }
 
 window.addEventListener('scroll', debounce(checkFadeIn, 50));
+
+// Initialize once on load
+checkFadeIn();
+
+// Floating controls: theme, party, motion
+(function setupControls() {
+  const themeBtn = document.getElementById('toggleTheme');
+  const partyBtn = document.getElementById('toggleParty');
+  const motionBtn = document.getElementById('toggleMotion');
+
+  const storedTheme = localStorage.getItem('theme');
+  const storedMotion = localStorage.getItem('reducedMotion');
+  const storedParty = localStorage.getItem('party');
+
+  if (storedTheme === 'dark') {
+    document.body.classList.add('theme-dark');
+    if (themeBtn) themeBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  const prefersReduced = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false;
+  const reduced = storedMotion === 'true' || prefersReduced;
+  if (reduced) {
+    document.documentElement.dataset.reducedMotion = 'true';
+    if (motionBtn) motionBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  if (storedParty === 'true') {
+    document.body.classList.add('party');
+    if (partyBtn) partyBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  if (themeBtn) themeBtn.addEventListener('click', () => {
+    const isDark = document.body.classList.toggle('theme-dark');
+    themeBtn.setAttribute('aria-pressed', String(isDark));
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
+  if (partyBtn) partyBtn.addEventListener('click', () => {
+    const active = document.body.classList.toggle('party');
+    partyBtn.setAttribute('aria-pressed', String(active));
+    localStorage.setItem('party', String(active));
+    launchConfetti();
+  });
+
+  if (motionBtn) motionBtn.addEventListener('click', () => {
+    const nowReduced = document.documentElement.dataset.reducedMotion !== 'true';
+    document.documentElement.dataset.reducedMotion = nowReduced ? 'true' : 'false';
+    motionBtn.setAttribute('aria-pressed', String(nowReduced));
+    localStorage.setItem('reducedMotion', String(nowReduced));
+  });
+})();
+
+function rand(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function launchConfetti() {
+  if (document.documentElement && document.documentElement.dataset.reducedMotion === 'true') return;
+  const colors = ['var(--accent-yellow)', 'var(--accent-red)', 'var(--accent-blue)', 'var(--accent-purple)'];
+  for (let i = 0; i < 48; i++) {
+    const piece = document.createElement('span');
+    piece.className = 'confetti';
+    piece.style.setProperty('--left', rand(0, 100) + 'vw');
+    piece.style.setProperty('--rot', rand(-180, 180) + 'deg');
+    piece.style.setProperty('--dur', (rand(18, 32) / 10) + 's');
+    piece.style.setProperty('--confetti-color', colors[rand(0, colors.length - 1)]);
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 4000);
+  }
+}
+
+// Konami code easter egg -> confetti
+(function setupKonami() {
+  const sequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let buffer = [];
+  window.addEventListener('keydown', (e) => {
+    buffer.push(e.key);
+    if (buffer.length > sequence.length) buffer.shift();
+    if (sequence.every((k, i) => buffer[i] === k)) {
+      launchConfetti();
+      buffer = [];
+    }
+  });
+})();
+
+// Dark mode image reveal: follow cursor within overlay
+(function setupDarkReveal() {
+  const overlay = document.querySelector('.darkModeOverlap');
+  if (!overlay) return;
+  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+  const update = (clientX, clientY) => {
+    const rect = overlay.getBoundingClientRect();
+    const x = clamp(clientX - rect.left, 0, rect.width);
+    const y = clamp(clientY - rect.top, 0, rect.height);
+    const radius = Math.max(rect.width, rect.height) * 0.35;
+    overlay.style.clipPath = `circle(${radius}px at ${x}px ${y}px)`;
+  };
+
+  overlay.addEventListener('mousemove', (e) => update(e.clientX, e.clientY));
+  overlay.addEventListener('mouseenter', (e) => update(e.clientX, e.clientY));
+  overlay.addEventListener('mouseleave', () => { overlay.style.clipPath = 'circle(0% at 50% 50%)'; });
+  overlay.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches[0]) update(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  overlay.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) update(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+})();
+
+// Simple 3D tilt effect on hover for elements marked with data-tilt
+(function setupTilt() {
+  const tiltTargets = document.querySelectorAll('[data-tilt]');
+  if (!tiltTargets.length) return;
+  const maxTilt = 10;
+  tiltTargets.forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const px = (x / rect.width) - 0.5;
+      const py = (y / rect.height) - 0.5;
+      const rx = (-py * maxTilt).toFixed(2);
+      const ry = (px * maxTilt).toFixed(2);
+      el.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0) scale(1.02)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)';
+      el.style.transition = 'transform 150ms ease';
+    });
+    el.addEventListener('mousedown', () => {
+      el.style.transition = 'transform 100ms ease';
+      el.style.transform += ' scale(0.995)';
+    });
+    el.addEventListener('mouseup', () => {
+      el.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)';
+    });
+  });
+})();
