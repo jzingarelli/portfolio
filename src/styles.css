@@ -114,8 +114,140 @@ h2 span {
 }
 
 .arrow{
-  transition: scale 100ms ease;
+  transition: scale 100ms ease, filter 200ms ease;
   border-radius:100%;
+}
+
+/* Floating animation for arrows */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Enhanced hover effects */
+.container {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Enhanced contact links */
+.contactLinks {
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.contactLinks:hover {
+  transform: translateY(-8px) scale(1.1);
+  background: rgba(255, 192, 29, 0.1);
+}
+
+/* Cursor trail styles */
+.cursor-trail {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  border-radius: 50%;
+  background: #FFC01D;
+  opacity: 0.5;
+  animation: trailFade 0.2s ease-out forwards;
+}
+
+@keyframes trailFade {
+  0% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+}
+
+/* Enhanced project cards */
+.container.newColorBlock {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Interactive text effects */
+#helloIntro {
+  background: linear-gradient(45deg, #FFC01D, #FF6B70, #A0DDFF, #B182FF);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Enhanced button effects */
+#inquireButton {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+#inquireButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.5s;
+}
+
+#inquireButton:hover::before {
+  left: 100%;
+}
+
+#inquireButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Particle system styles */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  background: #FFC01D;
+  z-index: -5;
+  animation: particleFloat 4s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.8;
+  }
 }
 
 #arrowImg{

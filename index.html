@@ -353,6 +353,33 @@
     </div>
 
 
+    <!-- Interactive Fun Zone -->
+    <div id="funZone" style="position: fixed; top: 20px; right: 20px; z-index: 1000; opacity: 0; transition: opacity 0.5s ease;">
+      <div id="bouncingBall" style="width: 50px; height: 50px; background: linear-gradient(45deg, #FFC01D, #FF6B70); border-radius: 50%; position: relative; cursor: pointer; box-shadow: 0 0 20px rgba(255, 192, 29, 0.5);"></div>
+      <p style="text-align: center; margin-top: 10px; font-size: 12px; color: #666;">Click me!</p>
+    </div>
+
+    <!-- Easter Egg Button -->
+    <button id="easterEgg" style="position: fixed; bottom: 20px; left: 20px; background: linear-gradient(45deg, #FFC01D, #FF6B70); border: none; border-radius: 50px; padding: 10px 20px; color: white; font-weight: bold; cursor: pointer; z-index: 1000; opacity: 0.7; transition: all 0.3s ease;">🎉 Fun Mode</button>
+
+    <!-- Help Panel -->
+    <div id="helpPanel" style="position: fixed; top: 20px; left: 20px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-radius: 10px; padding: 15px; max-width: 250px; z-index: 1000; opacity: 0; transform: translateX(-100%); transition: all 0.3s ease; border: 1px solid rgba(255,192,29,0.3);">
+      <h3 style="margin: 0 0 10px 0; color: #333; font-size: 16px;">🎮 Interactive Features</h3>
+      <ul style="margin: 0; padding-left: 20px; color: #666; font-size: 12px;">
+        <li><strong>Click anywhere</strong> - Ripple effect</li>
+        <li><strong>Move mouse</strong> - Cursor trail & sparkles</li>
+        <li><strong>Press R</strong> - Rainbow mode</li>
+        <li><strong>Press P</strong> - Toggle particles</li>
+        <li><strong>Press S</strong> - Surprise emojis</li>
+        <li><strong>Press T</strong> - Toggle mouse trail</li>
+        <li><strong>Click ball</strong> - Bounce animation</li>
+      </ul>
+      <button id="closeHelp" style="position: absolute; top: 5px; right: 10px; background: none; border: none; font-size: 18px; cursor: pointer; color: #999;">×</button>
+    </div>
+
+    <!-- Help Toggle Button -->
+    <button id="helpToggle" style="position: fixed; top: 20px; left: 20px; background: rgba(255,255,255,0.8); border: 1px solid rgba(255,192,29,0.5); border-radius: 50%; width: 40px; height: 40px; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; font-size: 18px;">?</button>
+
     <script src="src/index.js"></script>
   </body>
 </html>
