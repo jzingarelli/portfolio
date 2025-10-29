@@ -1,26 +1,28 @@
-const bigCircle = document.getElementById("bigCircle")
-const bigArrow = document.getElementById("bigArrow")
+// Cache DOM elements at initialization
+const bigCircle = document.getElementById("bigCircle");
+const bigArrow = document.getElementById("bigArrow");
 
-//set global mouse coordinate variables
-var xmouse;
-var ymouse;
+// Set global mouse coordinate variables
+let xmouse = 0;
+let ymouse = 0;
 
-//refresh mouse coordinates anytime mouse is moved
+// Refresh mouse coordinates with passive event listener for better performance
 window.addEventListener("mousemove", function(e) {
-  xmouse = e.clientX
-  ymouse = e.clientY
-});
+  xmouse = e.clientX;
+  ymouse = e.clientY;
+}, { passive: true });
 
-var x = 0;
-var y = 0;
-var dx = 0;
-var dy = 0;
+let x = 0;
+let y = 0;
+let dx = 0;
+let dy = 0;
 
-var arrows = document.getElementsByClassName("arrow")
-
-var arrowsArr = Array.from(arrows);
-
-heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
+// Cache DOM queries
+const arrows = document.getElementsByClassName("arrow");
+const arrowsArr = Array.from(arrows);
+const heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
+const bitsBack = document.getElementById("bitsBack");
+const bitsFront = document.getElementById("bitsFront");
 
 function followMouse() {
   //runs this function/animation infinetly
@@ -45,38 +47,43 @@ function followMouse() {
     }
   }
 
-  //rotate each circle + move front and back bits
-  for (let i=0; i<arrowsArr.length; i++) {
-    let scrollY = window.scrollY;
+  const scrollY = window.scrollY;
+  
+  // Rotate each circle + move front and back bits
+  for (let i = 0; i < arrowsArr.length; i++) {
+    const circle = arrowsArr[i];
+    const circleParent = circle.parentElement;
+    const rect = circleParent.getBoundingClientRect();
+    
+    // Calculate center coordinates of each circle based on the svg parent
+    const circleCenterX = rect.left + rect.width / 2;
+    const circleCenterY = rect.top + rect.height / 2;
+    
+    // Rotate each circle based on it's center and current mouse position
+    const rotateAmount = twisterMath(x, y, circleCenterX, circleCenterY);
+    circle.style.transform = `rotate(${rotateAmount}deg)`;
+  }
 
-    circle = arrowsArr[i];
-    circleParent = circle.parentElement;
-    //calculate center coordinates of each circle based on the svg parent
-    let circleCenterX = circleParent.getBoundingClientRect().left + circleParent.getBoundingClientRect().width/2;
-    let circleCenterY = circleParent.getBoundingClientRect().top + circleParent.getBoundingClientRect().height/2;
-    //rotate each circle based on it's center and current mouse position
-    let rotateAmount = twisterMath(x, y,(circleCenterX) , (circleCenterY));
-    circle.style.transform = `rotate(${rotateAmount}deg)`
-  };
+  // Get mouse distance from center of screen
+  const distanceFromScreenCenterX = (x - window.innerWidth / 2) / 600;
+  const distanceFromScreenCenterY = (y - window.innerHeight / 2) / 70;
 
-  //get mouse distance from center of screen
-  let disctanceFromScreenCenterX = (x-window.innerWidth/2)/600;
-  let disctanceFromScreenCenterY = (y - window.innerHeight/2)/70;
+  // Move back bits
+  if (bitsBack) {
+    bitsBack.style.left = `${distanceFromScreenCenterX + 50}%`;
+    bitsBack.style.top = `${distanceFromScreenCenterY + 125 - scrollY / 10}px`;
+  }
+  
+  // Move front bits
+  if (bitsFront) {
+    bitsFront.style.left = `${50 - distanceFromScreenCenterX}%`;
+    bitsFront.style.top = `${150 - distanceFromScreenCenterY - scrollY / 15}px`;
+  }
 
-  //move back bits
-  var bitsBack = document.getElementById("bitsBack")
-  var bitsFront = document.getElementById("bitsFront")
-  bitsBack.style.left = `${disctanceFromScreenCenterX + 50}%`;
-  bitsBack.style.top = `${disctanceFromScreenCenterY + 125 - scrollY/10}px`;
-  //move front bits
-  bitsFront.style.left = `${50 - disctanceFromScreenCenterX}%`;
-  bitsFront.style.top = `${150 - disctanceFromScreenCenterY - scrollY/15}px`;
-
-  // move portfolio piece graphic backgrounds and her images
-  for (let i=0; i < heroImageBackgrounds.length; i++) {
-    heroImageBackgrounds[i].style.left = `${50 - disctanceFromScreenCenterX/2}%`
-    heroImageBackgrounds[i].style.top = `${50 - disctanceFromScreenCenterY/2}%`
-
+  // Move portfolio piece graphic backgrounds
+  for (let i = 0; i < heroImageBackgrounds.length; i++) {
+    heroImageBackgrounds[i].style.left = `${50 - distanceFromScreenCenterX / 2}%`;
+    heroImageBackgrounds[i].style.top = `${50 - distanceFromScreenCenterY / 2}%`;
   }
 
 
@@ -85,60 +92,45 @@ function followMouse() {
 followMouse();
 
 
-function twisterMath(x, y, xShapeCenter, yShapeCenter){
-  return  Math.atan2(x - xShapeCenter,-(y - yShapeCenter)) *(180 / Math.PI) - 90
+function twisterMath(x, y, xShapeCenter, yShapeCenter) {
+  return Math.atan2(x - xShapeCenter, -(y - yShapeCenter)) * (180 / Math.PI) - 90;
 }
 
+// Use Intersection Observer for better performance than scroll events
+const fadeInElements = document.querySelectorAll('.fadeIn');
 
-
-// Returns a function, that, as long as it continues to be invoked, will not
-// be triggered. The function will be called after it stops being called for
-// N milliseconds. If `immediate` is passed, trigger the function on the
-// leading edge, instead of the trailing.
-function debounce(func, wait, immediate) {
-  var timeout;
-  return function() {
-    var context = this, args = arguments;
-    var later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
+// Create Intersection Observer for fade-in animations
+const observerOptions = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.15 // Trigger when 15% of element is visible
 };
 
-
-//fade in hero images
-const fadeInElements = document.querySelectorAll('.fadeIn')
-
-function checkFadeIn(e) {
-
-  fadeInElements.forEach(fadeInElement => {
-    //half image height
-    const fadeInElementViewPortOffset = fadeInElement.getBoundingClientRect();
-    const fadeInAt = (window.scrollY + window.innerHeight) - (fadeInElement.offsetHeight/2);
-    const isHalfShown = fadeInAt > fadeInElementViewPortOffset.top + scrollY;
-
-    if (isHalfShown) {
-      //animate in the element
-      fadeInElement.classList.add('active')
-      //get all the children of the element
+const fadeInObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fadeInElement = entry.target;
+      
+      // Animate in the element
+      fadeInElement.classList.add('active');
+      
+      // Get all the children of the element
       const fadeInElementChildren = fadeInElement.children;
-      for (let i=0; i<fadeInElementChildren.length; i++) {
-        //for each element child set opacity and transform
-
-        fadeInElementChildren[i].style.transition=`opacity 250ms ease-in, transform 500ms`;
-        fadeInElementChildren[i].style.transitionDelay=`${i*100}ms`;
-        fadeInElementChildren[i].style.opacity='1';
-        fadeInElementChildren[i].style.transform=`translate3d(0px, 0px, 0px)`;
-
+      for (let i = 0; i < fadeInElementChildren.length; i++) {
+        // For each element child set opacity and transform
+        fadeInElementChildren[i].style.transition = `opacity 250ms ease-in, transform 500ms`;
+        fadeInElementChildren[i].style.transitionDelay = `${i * 100}ms`;
+        fadeInElementChildren[i].style.opacity = '1';
+        fadeInElementChildren[i].style.transform = `translate3d(0px, 0px, 0px)`;
       }
+      
+      // Stop observing after animation triggers
+      fadeInObserver.unobserve(fadeInElement);
     }
   });
+}, observerOptions);
 
-}
-
-window.addEventListener('scroll', debounce(checkFadeIn, 50));
+// Observe all fade-in elements
+fadeInElements.forEach(element => {
+  fadeInObserver.observe(element);
+});
