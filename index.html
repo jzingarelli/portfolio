@@ -9,6 +9,9 @@
 
       gtag('config', 'G-G9YZX8CTKV');
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
     <title>Joey Zingarelli</title>
     <link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
@@ -29,7 +32,7 @@
 
   <body>
     <div>
-      <img id="bitsBack" src="img/bitsBack.svg" style="position:absolute; width: 94%; max-width: 1600px; top: 125px; left: 50%;transform: translateX(-50%); z-index:-10;">
+      <img id="bitsBack" src="img/bitsBack.svg" fetchpriority="high" decoding="async" style="position:absolute; width: 94%; max-width: 1600px; top: 125px; left: 50%;transform: translateX(-50%); z-index:-10;">
       <div  id="arrowHolder" class="circleOne">
         <div class="centerArrow">
           <svg  class="arrow" style="background-color:#FFC01D;" viewBox="0 0 567 567" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +54,7 @@
           </svg>
         </div>
       </div>
-      <img id="bitsFront" src="img/bitsFront.svg" style="position:absolute; width: 94%; max-width: 1600px; top: 150px; left: 50%;transform: translateX(-50%);">
+      <img id="bitsFront" src="img/bitsFront.svg" fetchpriority="high" decoding="async" style="position:absolute; width: 94%; max-width: 1600px; top: 150px; left: 50%;transform: translateX(-50%);">
 
       <h1 id='helloIntro' style="">
         Hello!<br> I’m Joey.
@@ -96,30 +99,30 @@
     <div class="container newColorBlock" style="">
       <div class="row flexRow ">
         <div class="twelve columns " style="position: relative;">
-          <img class="heroImagesBackground" src="img/headspaceDarkMode/background.svg" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+          <img class="heroImagesBackground" src="img/headspaceDarkMode/background.svg" loading="lazy" decoding="async" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
           <div id="heroImages" class="offset-by-one ten columns ">
             <div class="heroImg fadeIn" style="display: flex; justify-content: center; gap: 24px;">
               <div class=" darkModeImg1">
-                <img src="img/headspaceDarkMode/light-homescreen.png" class="stretchedImage">
+                <img src="img/headspaceDarkMode/light-homescreen.png" class="stretchedImage" loading="lazy" decoding="async">
               </div>
               <div class="darkModeImg2">
-                <img src="img/headspaceDarkMode/light-player.png" class="stretchedImage">
+                <img src="img/headspaceDarkMode/light-player.png" class="stretchedImage" loading="lazy" decoding="async">
               </div>
               <div class="darkModeImg3">
-                <img src="img/headspaceDarkMode/light-meditate.png" class="stretchedImage">
+                <img src="img/headspaceDarkMode/light-meditate.png" class="stretchedImage" loading="lazy" decoding="async">
               </div>
             </div>
           </div>
           <div id="heroImages" class="offset-by-one ten columns clip-animation darkModeOverlap">
             <div class="heroImg fadeIn" style="display: flex; justify-content: center; gap: 24px;">
               <div class=" darkModeImg1">
-                <img src="img/headspaceDarkMode/dark-homescreen.png" class="stretchedImage ">
+                <img src="img/headspaceDarkMode/dark-homescreen.png" class="stretchedImage " loading="lazy" decoding="async">
               </div>
               <div class="darkModeImg2">
-                <img src="img/headspaceDarkMode/dark-player.png" class="stretchedImage ">
+                <img src="img/headspaceDarkMode/dark-player.png" class="stretchedImage " loading="lazy" decoding="async">
               </div>
               <div class="darkModeImg3">
-                <img src="img/headspaceDarkMode/dark-meditate.png" class="stretchedImage ">
+                <img src="img/headspaceDarkMode/dark-meditate.png" class="stretchedImage " loading="lazy" decoding="async">
               </div>
             </div>
           </div>
@@ -162,17 +165,17 @@
     <div class="container newColorBlock" style="">
       <div class="row flexRow ">
         <div class="twelve columns " style="position: relative;">
-          <img class="heroImagesBackground" src="img/mobileAnalytics/chartBackground.svg" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+          <img class="heroImagesBackground" src="img/mobileAnalytics/chartBackground.svg" loading="lazy" decoding="async" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
           <div id="heroImages" class="offset-by-one ten columns ">
             <div class="heroImg fadeIn">
               <div class=" mobileAnalytics1">
-                <img src="img/mobileAnalytics/analytics-base-view@2x.png" class="stretchedImage">
+                <img src="img/mobileAnalytics/analytics-base-view@2x.png" class="stretchedImage" loading="lazy" decoding="async">
               </div>
               <div class=" mobileAnalytics2">
-                <img src="img/mobileAnalytics/line-chart-split@2x.png" class="stretchedImage">
+                <img src="img/mobileAnalytics/line-chart-split@2x.png" class="stretchedImage" loading="lazy" decoding="async">
               </div>
               <div class=" mobileAnalytics3">
-                <img src="img/mobileAnalytics/top-pins@2x.png" class="stretchedImage">
+                <img src="img/mobileAnalytics/top-pins@2x.png" class="stretchedImage" loading="lazy" decoding="async">
               </div>
             </div>
           </div>
@@ -214,21 +217,21 @@
     <div class="container" >
       <div class="row flexRow">
         <div class="twelve columns" id="first" style="position: relative;">
-          <img class="heroImagesBackground" src="img/algorithmControl/background.svg" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+          <img class="heroImagesBackground" src="img/algorithmControl/background.svg" loading="lazy" decoding="async" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
           <div class="offset-by-one ten columns ">
             <div class="heroImg">
               <div class=" fadeIn" id="heroImgElement" style="">
                 <div class="algorithmControl1" id="heroImgElement" style="z-index:20;">
-                  <img src="img/algorithmControl/contextual-hide.png" class="stretchedImage">
+                  <img src="img/algorithmControl/contextual-hide.png" class="stretchedImage" loading="lazy" decoding="async">
                 </div>
                 <div class=" algorithmControl2" id="heroImgElement">
-                  <img src="img/algorithmControl/tune-feed-web.png" class="stretchedImage">
+                  <img src="img/algorithmControl/tune-feed-web.png" class="stretchedImage" loading="lazy" decoding="async">
                 </div>
                 <div class="algorithmControl3" id="heroImgElement">
-                  <img src="img/algorithmControl/pull-to-tune.png " class="stretchedImage">
+                  <img src="img/algorithmControl/pull-to-tune.png " class="stretchedImage" loading="lazy" decoding="async">
                 </div>
                 <div class="algorithmControl4" id="heroImgElement">
-                  <img src="img/algorithmControl/tune-history.png " class="stretchedImage">
+                  <img src="img/algorithmControl/tune-history.png " class="stretchedImage" loading="lazy" decoding="async">
                 </div>
               </div>
             </div>
@@ -280,11 +283,11 @@
     <div class="container newColorBlock">
       <div class="row flexRow ">
         <div class="twelve columns "style="position: relative;">
-          <img class="heroImagesBackground" src="img/designSystems/background.svg" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+          <img class="heroImagesBackground" src="img/designSystems/background.svg" loading="lazy" decoding="async" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
 
           <div class="offset-by-two eight columns ">
             <div class="heroImg embed-container vimeoVideo">
-              <iframe title="vimeo-player" src="https://player.vimeo.com/video/280578880"  frameborder="0" allowfullscreen></iframe>
+              <iframe title="vimeo-player" src="https://player.vimeo.com/video/280578880" loading="lazy" frameborder="0" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -320,7 +323,7 @@
         <div class="twelve columns">
           <div class="offset-by-four four columns fadeIn">
             <div class="avatar">
-              <img src="img/joey-avatar-2024.jpeg" class="avatarImage">
+              <img src="img/joey-avatar-2024.jpeg" class="avatarImage" loading="lazy" decoding="async">
             </div>
           </div>
         </div>
@@ -353,6 +356,13 @@
     </div>
 
 
-    <script src="src/index.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/src/sw.js');
+        });
+      }
+    </script>
+    <script src="src/index.js" defer></script>
   </body>
 </html>

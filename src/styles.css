@@ -344,7 +344,7 @@ h2 span {
   width: 100%;
   padding-top: 56%; /* 1:1 Aspect Ratio */
   position: relative;
-  margin:
+  margin: 0;
 }
 
 .embed-container iframe,
