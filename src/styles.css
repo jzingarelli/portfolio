@@ -41,6 +41,14 @@ h2 span {
   line-height: 1.5em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+  transition: all 300ms ease;
+  display: inline-block;
+}
+
+h2 span:hover {
+  transform: skew(-5deg);
+  background: linear-gradient(45deg, #000, #333);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .highlight span {
@@ -110,12 +118,30 @@ h2 span {
   text-align: center;
 
   color: #000000;
+  animation: titleFloat 6s ease-in-out infinite;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
 
+@keyframes titleFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50% { transform: translateX(-50%) translateY(-10px); }
 }
 
 .arrow{
-  transition: scale 100ms ease;
+  transition: all 200ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   border-radius:100%;
+  cursor: pointer;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+.arrow:hover {
+  transform: scale(1.1) rotate(15deg);
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+}
+
+.arrow:active {
+  transform: scale(0.95) rotate(-5deg);
+  transition: all 100ms ease;
 }
 
 #arrowImg{
@@ -173,13 +199,41 @@ h2 span {
 
 #inquireButton{
   margin-top: 40px;
-  background-color: #fff;
+  background: linear-gradient(45deg, #fff, #f8f8f8);
   padding-left: 20px;
   padding-right: 20px;
   line-height: 1.5;
   border-radius: 30px;
   display: inline-block;
+  transition: all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
 
+#inquireButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  transition: left 500ms ease;
+}
+
+#inquireButton:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+#inquireButton:hover::before {
+  left: 100%;
+}
+
+#inquireButton:active {
+  transform: translateY(-1px) scale(0.98);
+  transition: all 100ms ease;
 }
 
 
@@ -196,8 +250,77 @@ h2 span {
 
 .fadeIn {
   opacity: 0;
-  transform: translate3d(0px, 20px, 0px);
-  transition: opacity 100ms ease-in, transform 100ms;
+  transform: translate3d(0px, 40px, 0px);
+  transition: all 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+}
+
+.animate-in {
+  animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(50px) scale(0.95);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .particle {
+    display: none;
+  }
+  
+  .custom-cursor {
+    display: none;
+  }
+  
+  body {
+    cursor: auto !important;
+    animation: none !important;
+  }
+  
+  #helloIntro {
+    animation: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  body {
+    background: white !important;
+  }
+  
+  .particle {
+    display: none;
+  }
+  
+  .custom-cursor {
+    background: black;
+    mix-blend-mode: normal;
+  }
+  
+  .scroll-progress {
+    background: black !important;
+  }
+}
+
+.fadeIn.active {
+  opacity: 1;
+  transform: translate3d(0px, 0px, 0px);
 }
 
 .fadeIn > div {
@@ -336,6 +459,13 @@ h2 span {
 .stretchedImage {
   max-width: 100%;
   max-height: 100%;
+  transition: all 400ms ease;
+  border-radius: 8px;
+}
+
+.heroImg:hover .stretchedImage {
+  transform: scale(1.02);
+  filter: brightness(1.05) saturate(1.1);
 }
 
 .vimeoVideo {
@@ -412,11 +542,37 @@ h2 span {
   padding: 12px;
   padding-top: 20px;
   transform: translate(0px, 0px);
-  transition: transform 100ms ease-out, scale 100ms;
+  transition: all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.contactLinks::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  transform: scale(0);
+  transition: transform 300ms ease;
+  border-radius: 50%;
 }
 
 .contactLinks:hover {
-  transform: translate(0px, -4px);
+  transform: translate(0px, -8px) scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.contactLinks:hover::before {
+  transform: scale(1);
+}
+
+.contactLinks:active {
+  transform: translate(0px, -4px) scale(0.95);
+  transition: all 100ms ease;
 }
 
 .contactIcons {
@@ -457,9 +613,61 @@ h2 span {
 body {
   font-family: "Chivo", sans-serif;
   margin: 0px;
-  background-color: #F5EDE2;
+  background: linear-gradient(135deg, #F5EDE2 0%, #E8D5C4 50%, #F5EDE2 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   transition: background-color 500ms;
   overflow-x: hidden;
+  cursor: none;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.1s ease;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor.hover {
+  transform: scale(2);
+  background: rgba(255, 192, 29, 0.8);
+  mix-blend-mode: normal;
+}
+
+/* Particle System */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+  50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+}
+
+.particle:nth-child(odd) {
+  animation-delay: -2s;
+  animation-duration: 8s;
+}
+
+.particle:nth-child(even) {
+  animation-delay: -4s;
+  animation-duration: 10s;
 }
 
 h2 {
@@ -478,6 +686,50 @@ h2 {
   padding: 16px;
   box-sizing: border-box;
   float: left;
+  transition: all 300ms ease;
+}
+
+.container:hover {
+  transform: translateY(-5px);
+}
+
+.newColorBlock {
+  border-radius: 20px;
+  transition: all 400ms ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.newColorBlock:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  transform: translateY(-8px);
+}
+
+.newColorBlock:hover .stretchedImage {
+  transform: scale(1.02);
+}
+
+.interactive-arrow {
+  transition: all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.interactive-arrow:hover {
+  filter: brightness(1.1) saturate(1.2);
+}
+
+.magnetic-element {
+  transition: transform 200ms ease;
+}
+
+/* Scroll Progress Indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, #FFD748, #FF6B70, #A0DDFF, #B182FF);
+  z-index: 1000;
+  transition: width 0.1s ease;
 }
 .column,
 .columns {
@@ -487,6 +739,57 @@ h2 {
 }
 
 
+
+/* Mobile-specific enhancements */
+@media (max-width: 499px) {
+  .custom-cursor {
+    display: none;
+  }
+  
+  body {
+    cursor: auto;
+    background-size: 200% 200%; /* Smaller gradient for mobile performance */
+  }
+  
+  .arrow {
+    transition: all 300ms ease;
+  }
+  
+  .arrow:active {
+    transform: scale(0.9);
+    filter: brightness(1.2);
+  }
+  
+  .contactLinks:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  #inquireButton:active {
+    transform: scale(0.95);
+  }
+  
+  .particle {
+    display: none; /* Reduce particles on mobile for performance */
+  }
+  
+  .newColorBlock:hover {
+    transform: none; /* Disable hover transforms on mobile */
+  }
+  
+  .heroImg:hover .stretchedImage {
+    transform: none;
+    filter: none;
+  }
+  
+  .magnetic-element {
+    pointer-events: auto; /* Ensure touch works */
+  }
+  
+  #helloIntro {
+    animation-duration: 15s; /* Slower animation on mobile */
+  }
+}
 
 /* For devices larger than 500px */
 @media (min-width: 500px) {
