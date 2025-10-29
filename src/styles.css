@@ -1,3 +1,19 @@
+:root {
+  --bg: #F5EDE2;
+  --text: #000000;
+  --surface: #ffffff;
+  --link: #000000;
+  --border: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] {
+  --bg: #111111;
+  --text: #ffffff;
+  --surface: #1a1a1a;
+  --link: #ffffff;
+  --border: rgba(255, 255, 255, 0.2);
+}
+
 html {
   scroll-behavior: smooth;
   margin: 0 auto;
@@ -6,22 +22,22 @@ html {
 
 /* unvisited link */
 a:link {
-  color: #000;
+  color: var(--link);
 }
 
 /* visited link */
 a:visited {
-  color: #000;
+  color: var(--link);
 }
 
 /* mouse over link */
 a:hover {
-  color: #000;
+  color: var(--link);
 }
 
 /* selected link */
 a:active {
-  color: #000;
+  color: var(--link);
 }
 
 #tags {
@@ -157,7 +173,7 @@ h2 span {
 
 #centerLine {
   width: 1px;
-  background-color: black;
+  background-color: var(--text);
   float: left;
   margin: auto;
 }
@@ -173,7 +189,7 @@ h2 span {
 
 #inquireButton{
   margin-top: 40px;
-  background-color: #fff;
+  background-color: var(--surface);
   padding-left: 20px;
   padding-right: 20px;
   line-height: 1.5;
@@ -185,7 +201,7 @@ h2 span {
 
 #inquireButton p {
   text-decoration: none;
-  color: black;
+  color: var(--text);
   font-size: 14px;
 }
 
@@ -425,13 +441,13 @@ h2 span {
 }
 
 #contactRow div a svg {
-  fill: black;
+  fill: currentColor;
   transform: translate3d(0px, 0px, 0px);
   transition: fill 100ms ease-in, transform 100ms;
 }
 
 #contactRowIntro div a svg {
-  fill: black;
+  fill: currentColor;
   transform: translate3d(0px, 0px, 0px);
   transition: fill 100ms ease-in, transform 100ms;
 }
@@ -457,9 +473,101 @@ h2 span {
 body {
   font-family: "Chivo", sans-serif;
   margin: 0px;
-  background-color: #F5EDE2;
-  transition: background-color 500ms;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 500ms, color 300ms;
   overflow-x: hidden;
+}
+
+/* Sticky header and nav */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: color-mix(in oklab, var(--bg) 92%, transparent);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: saturate(120%) blur(6px);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 16px;
+}
+
+.brand {
+  font-weight: 900;
+  letter-spacing: 0.25px;
+}
+
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+
+.theme-toggle {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  transition: background 200ms, border-color 200ms;
+}
+
+.theme-toggle .toggle-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--text);
+  transform: translateX(0);
+  transition: transform 200ms ease, background 200ms ease;
+}
+
+[data-theme="dark"] .theme-toggle .toggle-thumb {
+  transform: translateX(20px);
+  background: #FFD748; /* fun pop of color in dark mode */
+}
+
+#scrollProgress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, #FFD748, #A0DDFF, #FF6B70, #B182FF);
+  transition: width 60ms linear;
+}
+
+/* Skip link for a11y */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -40px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: top 150ms ease;
+  z-index: 1001;
+}
+.skip-link:focus { top: 8px; }
+
+/* Tilt items */
+.tilt { will-change: transform; transform-style: preserve-3d; transition: transform 200ms ease; }
+.tilt .stretchedImage { will-change: transform; transform: translateZ(24px); transition: transform 200ms ease; }
+
+/* Dark mode overrides for selected accents */
+[data-theme="dark"] h2 span { background-color: #ffffff; color: #000000; }
+[data-theme="dark"] #inquireButton { background-color: #222222; }
+[data-theme="dark"] #inquireButton p { color: #ffffff; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  .clip-animation { animation: none !important; }
 }
 
 h2 {

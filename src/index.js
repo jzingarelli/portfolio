@@ -16,13 +16,16 @@ var y = 0;
 var dx = 0;
 var dy = 0;
 
+const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 var arrows = document.getElementsByClassName("arrow")
 
 var arrowsArr = Array.from(arrows);
 
-heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
+const heroImageBackgrounds = document.getElementsByClassName("heroImagesBackground");
 
 function followMouse() {
+  if (prefersReducedMotion) return;
   //runs this function/animation infinetly
   window.requestAnimationFrame(followMouse);
   //only returns true on page load before cursor has been moved
@@ -49,8 +52,8 @@ function followMouse() {
   for (let i=0; i<arrowsArr.length; i++) {
     let scrollY = window.scrollY;
 
-    circle = arrowsArr[i];
-    circleParent = circle.parentElement;
+    let circle = arrowsArr[i];
+    let circleParent = circle.parentElement;
     //calculate center coordinates of each circle based on the svg parent
     let circleCenterX = circleParent.getBoundingClientRect().left + circleParent.getBoundingClientRect().width/2;
     let circleCenterY = circleParent.getBoundingClientRect().top + circleParent.getBoundingClientRect().height/2;
@@ -82,7 +85,9 @@ function followMouse() {
 
 };
 
-followMouse();
+if (!prefersReducedMotion) {
+  followMouse();
+}
 
 
 function twisterMath(x, y, xShapeCenter, yShapeCenter){
@@ -142,3 +147,87 @@ function checkFadeIn(e) {
 }
 
 window.addEventListener('scroll', debounce(checkFadeIn, 50));
+
+// initialize reveal on load as well
+window.addEventListener('load', function() { try { checkFadeIn(); } catch(e){} });
+
+// Scroll progress bar updater
+function updateScrollProgress() {
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  var scrollTop = window.scrollY || document.documentElement.scrollTop;
+  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  bar.style.width = progress + '%';
+}
+window.addEventListener('scroll', updateScrollProgress);
+window.addEventListener('load', updateScrollProgress);
+
+// Theme toggle
+function applyTheme(theme) {
+  try {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#111111' : '#F5EDE2');
+  } catch (e) {}
+}
+
+var themeToggleBtn = document.getElementById('themeToggle');
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    if (window.confetti) {
+      try { window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.2 } }); } catch (e) {}
+    }
+  });
+}
+
+// Keyboard shortcut: press "t" to toggle theme
+window.addEventListener('keydown', function(e) {
+  if ((e.key === 't' || e.key === 'T') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  }
+});
+
+// Add tilt interaction to showcase images
+function attachTilt(el) {
+  if (!el || prefersReducedMotion) return;
+  var strength = 10;
+  function onMove(e) {
+    var rect = el.getBoundingClientRect();
+    var px = (e.clientX - rect.left) / rect.width;
+    var py = (e.clientY - rect.top) / rect.height;
+    var rx = (py - 0.5) * -2 * strength;
+    var ry = (px - 0.5) * 2 * strength;
+    el.style.transform = 'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+  }
+  function reset() { el.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)'; }
+  el.addEventListener('mousemove', onMove);
+  el.addEventListener('mouseleave', reset);
+}
+
+try {
+  var tiltEls = document.querySelectorAll('.tilt');
+  tiltEls.forEach(attachTilt);
+} catch (e) {}
+
+// Confetti easter egg on avatar click
+try {
+  var avatar = document.querySelector('.avatar');
+  if (avatar && window.confetti) {
+    avatar.addEventListener('click', function() {
+      try {
+        window.confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.7 }
+        });
+      } catch (e) {}
+    });
+  }
+} catch (e) {}

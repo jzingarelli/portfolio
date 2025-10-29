@@ -19,17 +19,44 @@
     <meta name="theme-color" content="#ffffff">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <script>
+      (function() {
+        try {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) { meta.setAttribute('content', theme === 'dark' ? '#111111' : '#F5EDE2'); }
+        } catch (e) {}
+      })();
+    </script>
     <link
     href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet"
     />
 
+    <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" type="text/css" href="src/styles.css" />
   </head>
 
   <body>
+    <header class="site-header" role="banner">
+      <a class="skip-link" href="#main">Skip to content</a>
+      <nav class="nav" aria-label="Primary">
+        <div class="brand">Joey Zingarelli</div>
+        <div class="nav-actions">
+          <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+            <span class="toggle-thumb"></span>
+          </button>
+        </div>
+      </nav>
+      <div id="scrollProgress" aria-hidden="true"></div>
+    </header>
+    <main id="main" tabindex="-1">
     <div>
-      <img id="bitsBack" src="img/bitsBack.svg" style="position:absolute; width: 94%; max-width: 1600px; top: 125px; left: 50%;transform: translateX(-50%); z-index:-10;">
+      <img id="bitsBack" src="img/bitsBack.svg" alt="" aria-hidden="true" style="position:absolute; width: 94%; max-width: 1600px; top: 125px; left: 50%;transform: translateX(-50%); z-index:-10;">
       <div  id="arrowHolder" class="circleOne">
         <div class="centerArrow">
           <svg  class="arrow" style="background-color:#FFC01D;" viewBox="0 0 567 567" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +78,7 @@
           </svg>
         </div>
       </div>
-      <img id="bitsFront" src="img/bitsFront.svg" style="position:absolute; width: 94%; max-width: 1600px; top: 150px; left: 50%;transform: translateX(-50%);">
+      <img id="bitsFront" src="img/bitsFront.svg" alt="" aria-hidden="true" style="position:absolute; width: 94%; max-width: 1600px; top: 150px; left: 50%;transform: translateX(-50%);">
 
       <h1 id='helloIntro' style="">
         Hello!<br> I’m Joey.
@@ -96,30 +123,30 @@
     <div class="container newColorBlock" style="">
       <div class="row flexRow ">
         <div class="twelve columns " style="position: relative;">
-          <img class="heroImagesBackground" src="img/headspaceDarkMode/background.svg" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+          <img class="heroImagesBackground" src="img/headspaceDarkMode/background.svg" loading="lazy" decoding="async" alt="" aria-hidden="true" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
           <div id="heroImages" class="offset-by-one ten columns ">
             <div class="heroImg fadeIn" style="display: flex; justify-content: center; gap: 24px;">
-              <div class=" darkModeImg1">
-                <img src="img/headspaceDarkMode/light-homescreen.png" class="stretchedImage">
+              <div class=" darkModeImg1 tilt">
+                <img src="img/headspaceDarkMode/light-homescreen.png" loading="lazy" decoding="async" alt="Headspace light mode homescreen" class="stretchedImage">
               </div>
-              <div class="darkModeImg2">
-                <img src="img/headspaceDarkMode/light-player.png" class="stretchedImage">
+              <div class="darkModeImg2 tilt">
+                <img src="img/headspaceDarkMode/light-player.png" loading="lazy" decoding="async" alt="Headspace light mode player" class="stretchedImage">
               </div>
-              <div class="darkModeImg3">
-                <img src="img/headspaceDarkMode/light-meditate.png" class="stretchedImage">
+              <div class="darkModeImg3 tilt">
+                <img src="img/headspaceDarkMode/light-meditate.png" loading="lazy" decoding="async" alt="Headspace light mode meditate screen" class="stretchedImage">
               </div>
             </div>
           </div>
           <div id="heroImages" class="offset-by-one ten columns clip-animation darkModeOverlap">
             <div class="heroImg fadeIn" style="display: flex; justify-content: center; gap: 24px;">
-              <div class=" darkModeImg1">
-                <img src="img/headspaceDarkMode/dark-homescreen.png" class="stretchedImage ">
+              <div class=" darkModeImg1 tilt">
+                <img src="img/headspaceDarkMode/dark-homescreen.png" loading="lazy" decoding="async" alt="Headspace dark mode homescreen" class="stretchedImage ">
               </div>
-              <div class="darkModeImg2">
-                <img src="img/headspaceDarkMode/dark-player.png" class="stretchedImage ">
+              <div class="darkModeImg2 tilt">
+                <img src="img/headspaceDarkMode/dark-player.png" loading="lazy" decoding="async" alt="Headspace dark mode player" class="stretchedImage ">
               </div>
-              <div class="darkModeImg3">
-                <img src="img/headspaceDarkMode/dark-meditate.png" class="stretchedImage ">
+              <div class="darkModeImg3 tilt">
+                <img src="img/headspaceDarkMode/dark-meditate.png" loading="lazy" decoding="async" alt="Headspace dark mode meditate screen" class="stretchedImage ">
               </div>
             </div>
           </div>
@@ -162,17 +189,17 @@
     <div class="container newColorBlock" style="">
       <div class="row flexRow ">
         <div class="twelve columns " style="position: relative;">
-          <img class="heroImagesBackground" src="img/mobileAnalytics/chartBackground.svg" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+          <img class="heroImagesBackground" src="img/mobileAnalytics/chartBackground.svg" loading="lazy" decoding="async" alt="" aria-hidden="true" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
           <div id="heroImages" class="offset-by-one ten columns ">
             <div class="heroImg fadeIn">
-              <div class=" mobileAnalytics1">
-                <img src="img/mobileAnalytics/analytics-base-view@2x.png" class="stretchedImage">
+              <div class=" mobileAnalytics1 tilt">
+                <img src="img/mobileAnalytics/analytics-base-view@2x.png" loading="lazy" decoding="async" alt="Pinterest analytics base view" class="stretchedImage">
               </div>
-              <div class=" mobileAnalytics2">
-                <img src="img/mobileAnalytics/line-chart-split@2x.png" class="stretchedImage">
+              <div class=" mobileAnalytics2 tilt">
+                <img src="img/mobileAnalytics/line-chart-split@2x.png" loading="lazy" decoding="async" alt="Pinterest analytics line chart view" class="stretchedImage">
               </div>
-              <div class=" mobileAnalytics3">
-                <img src="img/mobileAnalytics/top-pins@2x.png" class="stretchedImage">
+              <div class=" mobileAnalytics3 tilt">
+                <img src="img/mobileAnalytics/top-pins@2x.png" loading="lazy" decoding="async" alt="Pinterest analytics top pins view" class="stretchedImage">
               </div>
             </div>
           </div>
@@ -214,21 +241,21 @@
     <div class="container" >
       <div class="row flexRow">
         <div class="twelve columns" id="first" style="position: relative;">
-          <img class="heroImagesBackground" src="img/algorithmControl/background.svg" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+          <img class="heroImagesBackground" src="img/algorithmControl/background.svg" loading="lazy" decoding="async" alt="" aria-hidden="true" class="" style="position:absolute; width: 100%; top: 50%; left: 50%;transform: translate(-50%, -50%);">
           <div class="offset-by-one ten columns ">
             <div class="heroImg">
               <div class=" fadeIn" id="heroImgElement" style="">
-                <div class="algorithmControl1" id="heroImgElement" style="z-index:20;">
-                  <img src="img/algorithmControl/contextual-hide.png" class="stretchedImage">
+                <div class="algorithmControl1 tilt" id="heroImgElement" style="z-index:20;">
+                  <img src="img/algorithmControl/contextual-hide.png" loading="lazy" decoding="async" alt="Pinterest contextual hide control" class="stretchedImage">
                 </div>
-                <div class=" algorithmControl2" id="heroImgElement">
-                  <img src="img/algorithmControl/tune-feed-web.png" class="stretchedImage">
+                <div class=" algorithmControl2 tilt" id="heroImgElement">
+                  <img src="img/algorithmControl/tune-feed-web.png" loading="lazy" decoding="async" alt="Pinterest tune feed web" class="stretchedImage">
                 </div>
-                <div class="algorithmControl3" id="heroImgElement">
-                  <img src="img/algorithmControl/pull-to-tune.png " class="stretchedImage">
+                <div class="algorithmControl3 tilt" id="heroImgElement">
+                  <img src="img/algorithmControl/pull-to-tune.png " loading="lazy" decoding="async" alt="Pinterest pull to tune" class="stretchedImage">
                 </div>
-                <div class="algorithmControl4" id="heroImgElement">
-                  <img src="img/algorithmControl/tune-history.png " class="stretchedImage">
+                <div class="algorithmControl4 tilt" id="heroImgElement">
+                  <img src="img/algorithmControl/tune-history.png " loading="lazy" decoding="async" alt="Pinterest tune history" class="stretchedImage">
                 </div>
               </div>
             </div>
@@ -284,7 +311,7 @@
 
           <div class="offset-by-two eight columns ">
             <div class="heroImg embed-container vimeoVideo">
-              <iframe title="vimeo-player" src="https://player.vimeo.com/video/280578880"  frameborder="0" allowfullscreen></iframe>
+              <iframe title="vimeo-player" loading="lazy" src="https://player.vimeo.com/video/280578880" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -320,7 +347,7 @@
         <div class="twelve columns">
           <div class="offset-by-four four columns fadeIn">
             <div class="avatar">
-              <img src="img/joey-avatar-2024.jpeg" class="avatarImage">
+              <img src="img/joey-avatar-2024.jpeg" alt="Joey Zingarelli headshot" class="avatarImage">
             </div>
           </div>
         </div>
@@ -351,8 +378,9 @@
         </div>
       </div>
     </div>
-
-
+    
+    
+    </main>
     <script src="src/index.js"></script>
   </body>
 </html>
