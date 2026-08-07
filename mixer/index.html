@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Growth Mixer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤝</text></svg>">
+<style>
+  /* Single-theme by design: a dark "game night" screen for phones in a dim room. */
+  :root{
+    --bg:#171030;
+    --bg-2:#221743;
+    --card:#2a1d4e;
+    --card-2:#332259;
+    --ink:#f4efff;
+    --dim:#a99ccb;
+    --faint:#6f639b;
+    --gold:#ffc24b;
+    --pink:#f2609e;
+    --line:rgba(244,239,255,.10);
+    --ok:#5fd39a;
+    --font-display:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",system-ui,sans-serif;
+    --font-body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{
+    background:radial-gradient(120% 90% at 50% -10%, #2b1b55 0%, var(--bg) 55%) fixed, var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    min-height:100dvh;
+    -webkit-text-size-adjust:100%;
+  }
+  #app{max-width:430px;margin:0 auto;padding:20px 18px 40px;min-height:100dvh;display:flex;flex-direction:column}
+  .screen{display:none;flex:1;flex-direction:column}
+  .screen.on{display:flex}
+
+  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  h1{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,8vw,34px);line-height:1.05;text-wrap:balance;letter-spacing:-.01em}
+  h2{font-family:var(--font-display);font-weight:800;font-size:22px;text-wrap:balance}
+  .sub{color:var(--dim);font-size:15px;line-height:1.5}
+  header.brand{display:flex;flex-direction:column;gap:6px;padding:8px 0 20px;text-align:center;align-items:center}
+  .wordmark{background:linear-gradient(100deg,var(--gold),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+  button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer;font-size:15px}
+  button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:13px 20px;font-weight:600;font-size:15px;color:var(--ink);
+  }
+  .btn:active{transform:scale(.97)}
+  .btn-quiet{color:var(--dim);padding:10px 14px;font-size:14px}
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%);
+    background:#0e0a22;border:1px solid var(--line);color:var(--ink);
+    padding:11px 18px;border-radius:12px;font-size:14px;max-width:88vw;text-align:center;
+    opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;box-shadow:0 8px 30px rgba(0,0,0,.5)
+  }
+  .toast.show{opacity:1}
+
+  .face{
+    display:flex;align-items:center;justify-content:center;flex:none;
+    border-radius:50%;overflow:hidden;font-size:26px;line-height:1;
+    background:var(--av,#5b4a8f);
+  }
+  .face img{width:100%;height:100%;object-fit:cover;display:block}
+  .face .init{font-family:var(--font-display);font-weight:800;font-size:.72em;color:#241233}
+
+  .search{
+    width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;
+    padding:12px 16px;font-size:16px;color:var(--ink);margin-bottom:14px;
+  }
+  .search::placeholder{color:var(--faint)}
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .tile{
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:14px 6px 12px;
+  }
+  .tile:active{transform:scale(.96)}
+  .tile .face{width:52px;height:52px;font-size:28px}
+  .tile .nm{font-size:13px;font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .helpcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-top:16px;font-size:14px;color:var(--dim);line-height:1.5}
+
+  .youchip{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+  .youchip .face{width:44px;height:44px;font-size:24px}
+  .youchip .who{flex:1;min-width:0}
+  .youchip .who b{display:block;font-size:16px}
+  .youchip .who button{color:var(--faint);font-size:12px;padding:2px 0}
+  .pill{display:inline-flex;align-items:center;gap:7px;background:var(--bg-2);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--dim)}
+  .stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:30px 0}
+  #matchbtn{
+    width:196px;height:196px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold) 10%,var(--pink) 90%);
+    color:#241233;font-family:var(--font-display);font-weight:800;font-size:26px;letter-spacing:.02em;
+    box-shadow:0 0 0 10px rgba(242,96,158,.12),0 0 60px rgba(242,96,158,.35);
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  #matchbtn:active{transform:scale(.95)}
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 10px rgba(242,96,158,.12),0 0 46px rgba(242,96,158,.30)}
+    50%{box-shadow:0 0 0 16px rgba(255,194,75,.14),0 0 76px rgba(242,96,158,.5)}
+  }
+
+  .shuffler{display:flex;flex-direction:column;align-items:center;gap:18px}
+  #shufface{width:132px;height:132px;font-size:64px;transition:transform .12s}
+  #shufname{font-family:var(--font-display);font-weight:800;font-size:22px;min-height:28px}
+  .scan{color:var(--dim);font-size:14px;animation:blink 1.4s ease-in-out infinite}
+  @keyframes blink{50%{opacity:.4}}
+
+  .matchcard{
+    background:linear-gradient(160deg,var(--card-2),var(--card));border:1px solid var(--line);
+    border-radius:24px;padding:30px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;
+  }
+  .duo{display:flex;justify-content:center}
+  .duo .face{width:110px;height:110px;font-size:56px;border:4px solid var(--bg);margin:0 -12px}
+  .matchname{font-family:var(--font-display);font-weight:800;font-size:30px;text-wrap:balance}
+  .prompt{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:14px;color:var(--dim);line-height:1.45}
+  .prompt b{color:var(--gold);display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+  .lost{font-size:13px;color:var(--faint);line-height:1.5;text-align:center;max-width:300px}
+
+  .notice{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
+  footer{padding-top:26px;text-align:center;color:var(--faint);font-size:12px}
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:40}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="brand">
+    <span class="eyebrow">Growth Team · Seattle Offsite</span>
+    <h1 class="wordmark">Growth Mixer</h1>
+  </header>
+
+  <!-- pick identity -->
+  <section class="screen on" id="scr-signin">
+    <p class="sub" style="text-align:center;margin-bottom:16px">First things first — which one is you?</p>
+    <input class="search" id="namesearch" type="search" placeholder="Search your name…" autocomplete="off">
+    <div class="tiles" id="tiles"></div>
+    <div class="helpcard">Not on the list? Easy fix: find someone else who isn't on it — congratulations, you're a match! 🎉</div>
+    <footer>Built with Claude 🤝</footer>
+  </section>
+
+  <!-- home -->
+  <section class="screen" id="scr-home">
+    <div class="youchip">
+      <div class="face" id="mychip-face"></div>
+      <div class="who"><b id="mychip-name"></b><button id="notme">Not you? Switch person</button></div>
+      <span class="pill" id="roundpill">Round 1</span>
+    </div>
+    <div class="stage">
+      <p class="sub" style="text-align:center">Ready to meet someone new?<br>Hit the button.</p>
+      <button id="matchbtn">MATCH<br>ME</button>
+    </div>
+    <footer>Built with Claude 🤝</footer>
+  </section>
+
+  <!-- searching -->
+  <section class="screen" id="scr-search">
+    <div class="stage shuffler">
+      <div class="face" id="shufface"></div>
+      <div id="shufname">&nbsp;</div>
+      <div class="scan">Finding your person…</div>
+    </div>
+  </section>
+
+  <!-- matched -->
+  <section class="screen" id="scr-match">
+    <div class="stage" style="justify-content:flex-start;padding-top:10px">
+      <span class="eyebrow" id="matcheyebrow">It's a match</span>
+      <div class="matchcard">
+        <div class="duo" id="matchfaces"></div>
+        <div class="matchname" id="matchnames"></div>
+        <p class="sub" id="matchsub">Go find them, say hi, and introduce yourself.</p>
+        <div class="prompt"><b>Conversation starter</b><span id="matchprompt"></span></div>
+      </div>
+      <p class="lost">Can't find your person? Head to the front of the room — anyone missing a partner meets there.</p>
+      <button class="btn" id="nextround">Next round →</button>
+      <button class="btn btn-quiet" id="backhome">← Back</button>
+    </div>
+    <footer>Built with Claude 🤝</footer>
+  </section>
+</div>
+
+<canvas id="confetti"></canvas>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- roster (shipped with the page) ----------------
+   Every phone loads the same list, so every phone computes the same
+   matches — no server, no sign-in. */
+const ROSTER = [
+  {id: "sample-amara",  name: "Amara (sample)",  emoji: "🦊"},
+  {id: "sample-ben",    name: "Ben (sample)",    emoji: "🐙"},
+  {id: "sample-carmen", name: "Carmen (sample)", emoji: "🌵"},
+  {id: "sample-dev",    name: "Dev (sample)",    emoji: "🚀"},
+  {id: "sample-elena",  name: "Elena (sample)",  emoji: "🌈"},
+  {id: "sample-frank",  name: "Frank (sample)",  emoji: "🍩"},
+  {id: "sample-grace",  name: "Grace (sample)",  emoji: "⚡️"},
+  {id: "sample-hiro",   name: "Hiro (sample)",   emoji: "🎸"},
+  {id: "sample-ines",   name: "Ines (sample)",   emoji: "🧋"},
+  {id: "sample-jonas",  name: "Jonas (sample)",  emoji: "🏔️"},
+  {id: "sample-kya",    name: "Kya (sample)",    emoji: "🦄"},
+  {id: "sample-leo",    name: "Leo (sample)",    emoji: "🐳"}
+];
+const PROMPTS = [
+  "What's the best thing you ate in the last month?",
+  "What's a small thing that made your week better?",
+  "What were you almost named?",
+  "What's your most-used emoji, and why?",
+  "What's a hobby you'd pick up if time were free?",
+  "Coffee order — and does it say anything about you?",
+  "What's the last thing you rabbit-holed on?",
+  "Best concert or live event you've ever been to?",
+  "What's your go-to karaoke song (real or hypothetical)?",
+  "What's a place you'd move to for one year, no questions asked?",
+  "What did 12-year-old you think you'd be doing now?",
+  "What's the most Seattle thing you've done so far this trip?",
+  "Hot take: what's an overrated snack?",
+  "What's one thing your teammates would be surprised to learn about you?"
+];
+
+/* ---------------- deterministic matching ----------------
+   Round-robin "circle method": everyone gets a different partner every
+   round, and every phone agrees, because it's pure math over the same
+   roster. Odd headcount → the leftover person joins a pair as a trio. */
+function xmur3(str){
+  let h = 1779033703 ^ str.length;
+  for (let i = 0; i < str.length; i++){
+    h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+    h = (h << 13) | (h >>> 19);
+  }
+  return () => {
+    h = Math.imul(h ^ (h >>> 16), 2246822507);
+    h = Math.imul(h ^ (h >>> 13), 3266489909);
+    return (h ^= h >>> 16) >>> 0;
+  };
+}
+function mulberry32(a){
+  return () => {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function baseOrder(){
+  const ids = ROSTER.map(p => p.id).sort();
+  const rand = mulberry32(xmur3("growth-mixer-seattle-2026")());
+  for (let i = ids.length - 1; i > 0; i--){
+    const j = Math.floor(rand() * (i + 1));
+    [ids[i], ids[j]] = [ids[j], ids[i]];
+  }
+  return ids;
+}
+function roundAssignments(round){
+  const ids = baseOrder();
+  const arr = ids.length % 2 ? [...ids, null] : [...ids];
+  const n = arr.length;
+  const fixed = arr[0];
+  const rest = arr.slice(1);
+  const k = (round - 1) % (n - 1);
+  const rot = rest.slice(rest.length - k).concat(rest.slice(0, rest.length - k));
+  const order = [fixed, ...rot];
+  const groups = [];
+  let bye = null;
+  for (let i = 0; i < n / 2; i++){
+    const a = order[i], b = order[n - 1 - i];
+    if (a === null) bye = b;
+    else if (b === null) bye = a;
+    else groups.push([a, b]);
+  }
+  if (bye !== null){
+    if (groups.length) groups[0].push(bye);
+    else groups.push([bye]);
+  }
+  const map = {};
+  for (const g of groups) for (const id of g) map[id] = g.filter(x => x !== id);
+  return map;
+}
+function promptFor(group, round){
+  const key = [...group].sort().join("|") + "#r" + round;
+  return xmur3(key)() % PROMPTS.length;
+}
+
+/* ---------------- helpers ---------------- */
+const $ = id => document.getElementById(id);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const AV_COLORS = ["#ffc24b","#f2609e","#7ac7ff","#5fd39a","#c9a2ff","#ff9e6d","#7ee8d0","#f2d15c"];
+const rosterMap = {};
+ROSTER.forEach(p => rosterMap[p.id] = p);
+
+function toast(msg){
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._h);
+  t._h = setTimeout(() => t.classList.remove("show"), 3200);
+}
+function show(id){
+  document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id));
+}
+function avColor(id){
+  let h = 0;
+  for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return AV_COLORS[h % AV_COLORS.length];
+}
+function fillFace(el, p){
+  el.textContent = "";
+  el.style.setProperty("--av", avColor(p.id));
+  if (p.photo){
+    const img = document.createElement("img");
+    img.src = p.photo;
+    img.alt = "";
+    el.appendChild(img);
+  } else if (p.emoji){
+    el.append(p.emoji);
+  } else {
+    const s = document.createElement("span");
+    s.className = "init";
+    s.textContent = (p.name || "?").trim().slice(0, 2).toUpperCase();
+    el.appendChild(s);
+  }
+}
+
+/* ---------------- state ---------------- */
+const LS_ID = "mixer_static_id", LS_ROUND = "mixer_static_round";
+let me = null;
+let round = parseInt(localStorage.getItem(LS_ROUND) || "1", 10) || 1;
+let animToken = 0;
+
+/* ---------------- sign-in ---------------- */
+function drawTiles(){
+  const q = $("namesearch").value.trim().toLowerCase();
+  const wrap = $("tiles");
+  wrap.textContent = "";
+  ROSTER.slice().sort((a, b) => a.name.localeCompare(b.name))
+    .filter(p => !q || p.name.toLowerCase().includes(q))
+    .forEach(p => {
+      const b = document.createElement("button");
+      b.className = "tile";
+      b.type = "button";
+      const f = document.createElement("div");
+      f.className = "face";
+      fillFace(f, p);
+      const n = document.createElement("div");
+      n.className = "nm";
+      n.textContent = p.name;
+      b.append(f, n);
+      b.addEventListener("click", () => {
+        me = p;
+        localStorage.setItem(LS_ID, p.id);
+        goHome();
+      });
+      wrap.appendChild(b);
+    });
+}
+$("namesearch").addEventListener("input", drawTiles);
+
+/* ---------------- home ---------------- */
+function goHome(){
+  fillFace($("mychip-face"), me);
+  $("mychip-name").textContent = me.name;
+  $("roundpill").textContent = "Round " + round;
+  show("scr-home");
+}
+$("notme").addEventListener("click", () => {
+  localStorage.removeItem(LS_ID);
+  me = null;
+  show("scr-signin");
+});
+
+/* ---------------- match ---------------- */
+$("matchbtn").addEventListener("click", async () => {
+  const token = ++animToken;
+  show("scr-search");
+  await runShuffle(token);
+  if (token !== animToken) return;
+  reveal(true);
+});
+async function runShuffle(token){
+  const faceEl = $("shufface"), nameEl = $("shufname");
+  const pool = ROSTER.filter(p => p.id !== me.id);
+  if (reduceMotion || pool.length < 2){ await sleep(600); return; }
+  let delay = 80;
+  const until = Date.now() + 2600;
+  while (Date.now() < until && token === animToken){
+    const p = pool[Math.floor(Math.random() * pool.length)];
+    fillFace(faceEl, p);
+    nameEl.textContent = p.name;
+    faceEl.style.transform = "scale(" + (0.92 + Math.random() * 0.16) + ")";
+    await sleep(delay);
+    delay = Math.min(260, delay * 1.13);
+  }
+}
+function reveal(celebrate){
+  const partners = (roundAssignments(round)[me.id] || []).map(id => rosterMap[id]).filter(Boolean);
+  const facesEl = $("matchfaces");
+  facesEl.textContent = "";
+  partners.forEach(p => {
+    const f = document.createElement("div");
+    f.className = "face";
+    fillFace(f, p);
+    facesEl.appendChild(f);
+  });
+  const names = partners.map(p => p.name);
+  if (!names.length){
+    $("matchnames").textContent = "Wildcard!";
+    $("matcheyebrow").textContent = "Free agent";
+    $("matchsub").textContent = "Find anyone without a partner — that's your match.";
+    $("matchprompt").textContent = PROMPTS[promptFor([me.id], round)];
+  } else {
+    $("matchnames").textContent = names.join(" + ");
+    $("matcheyebrow").textContent = names.length > 1 ? "It's a trio!" : "It's a match";
+    $("matchsub").textContent = names.length > 1
+      ? "The three of you are a group — go find each other!"
+      : "Go find them, say hi, and introduce yourself.";
+    $("matchprompt").textContent = PROMPTS[promptFor([me.id, ...partners.map(p => p.id)], round)];
+  }
+  show("scr-match");
+  if (celebrate && !reduceMotion) confetti();
+}
+$("backhome").addEventListener("click", goHome);
+$("nextround").addEventListener("click", () => {
+  if (!confirm("Only move on when the host announces the next round — everyone has to switch together. Ready?")) return;
+  round += 1;
+  localStorage.setItem(LS_ROUND, String(round));
+  toast("Round " + round + "!");
+  goHome();
+});
+
+/* ---------------- confetti ---------------- */
+function confetti(){
+  const cv = $("confetti"), ctx = cv.getContext("2d");
+  cv.width = innerWidth; cv.height = innerHeight;
+  const bits = Array.from({length: 120}, () => ({
+    x: Math.random() * cv.width,
+    y: -20 - Math.random() * cv.height * 0.5,
+    r: 4 + Math.random() * 5,
+    c: AV_COLORS[Math.floor(Math.random() * AV_COLORS.length)],
+    vy: 2 + Math.random() * 3.5,
+    vx: -1.5 + Math.random() * 3,
+    rot: Math.random() * Math.PI,
+    vr: -0.1 + Math.random() * 0.2
+  }));
+  const t0 = Date.now();
+  (function frame(){
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    bits.forEach(b => {
+      b.x += b.vx; b.y += b.vy; b.rot += b.vr;
+      ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.rot);
+      ctx.fillStyle = b.c;
+      ctx.fillRect(-b.r, -b.r / 2, b.r * 2, b.r);
+      ctx.restore();
+    });
+    if (Date.now() - t0 < 2800) requestAnimationFrame(frame);
+    else ctx.clearRect(0, 0, cv.width, cv.height);
+  })();
+}
+
+/* ---------------- boot ---------------- */
+const saved = localStorage.getItem(LS_ID);
+if (saved && rosterMap[saved]){
+  me = rosterMap[saved];
+  goHome();
+} else {
+  drawTiles();
+}
+drawTiles();
+})();
+</script>
+</body>
+</html>
