@@ -158,6 +158,22 @@
   .hostbtns{display:flex;flex-direction:column;gap:10px;margin-top:14px}
   #unmatched{font-size:13px;color:var(--dim);line-height:1.6;margin-top:10px;word-break:break-word}
 
+  /* admin view */
+  .admincard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .bigcode{font-family:var(--font-display);font-weight:800;font-size:44px;letter-spacing:.28em;text-indent:.28em;text-align:center;color:var(--gold)}
+  #qrbox{display:flex;justify-content:center;background:#fff;border-radius:16px;padding:10px;align-self:center}
+  .hostcode{text-align:center;font-size:13px;color:var(--dim)}
+  .hostcode b{color:var(--ink);letter-spacing:.15em}
+  .plist{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto}
+  .prow{display:flex;align-items:center;gap:10px;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+  .prow .face{width:36px;height:36px;font-size:20px}
+  .prow span{flex:1;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .prow button{color:var(--faint);font-size:12px}
+  .filebtn{position:relative;overflow:hidden}
+  .filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .admin2col{display:flex;gap:10px}
+  .admin2col .btn{flex:1}
+
   .notice{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
   footer{padding-top:26px;text-align:center;color:var(--faint);font-size:12px}
   footer button{color:var(--faint);font-size:12px;text-decoration:underline}
@@ -185,6 +201,37 @@
         <button class="btn btn-primary" type="submit" style="width:100%;margin-top:12px">Join the mixer</button>
       </form>
       <button class="hostlink" id="createroom">Hosting? Start a new room →</button>
+    </div>
+    <footer>Built with Claude 🤝</footer>
+  </section>
+
+  <!-- host admin view -->
+  <section class="screen" id="scr-admin">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="admincard">
+        <span class="eyebrow" style="text-align:center">Room code</span>
+        <div class="bigcode" id="adm-code">––––</div>
+        <div id="qrbox"><canvas id="roomqr" width="240" height="240"></canvas></div>
+        <p class="sub" style="text-align:center;font-size:13px">Scanning this QR joins the room directly — no typing. Put it (or the code) on the big screen.</p>
+        <button class="btn" id="adm-copylink">Copy join link</button>
+        <p class="hostcode">Host code: <b id="adm-hostcode"></b><br>Save it — it unlocks this view on any device.</p>
+      </div>
+      <div class="admincard">
+        <span class="eyebrow">Add people</span>
+        <p class="sub" style="font-size:13px">Anyone who might show up but isn't on the built-in list. Photo optional — without one they get a colorful tile.</p>
+        <form id="admform" style="display:flex;flex-direction:column;gap:10px">
+          <input class="search" id="admname" maxlength="40" placeholder="Name" autocomplete="off" style="margin:0">
+          <div class="admin2col">
+            <label class="btn filebtn"><span id="admphotolabel">📷 Photo</span><input type="file" id="admphoto" accept="image/*"></label>
+            <button class="btn btn-primary" type="submit">Add person</button>
+          </div>
+        </form>
+        <div class="plist" id="admlist"></div>
+      </div>
+      <div class="admin2col">
+        <button class="btn" id="adm-controls">⚙︎ Game controls</button>
+        <button class="btn btn-primary" id="adm-enter">Join as a player →</button>
+      </div>
     </div>
     <footer>Built with Claude 🤝</footer>
   </section>
@@ -267,6 +314,7 @@
   </div>
   <div id="unmatched"></div>
   <div class="hostbtns">
+    <button class="btn" id="host-admin">Room setup, QR &amp; people</button>
     <button class="btn" id="host-pairleft">Pair up everyone still waiting</button>
     <button class="btn" id="host-newround">Start a new round</button>
     <button class="btn" id="host-reset">Reset this room (fresh start)</button>
@@ -277,6 +325,7 @@
 <canvas id="confetti"></canvas>
 <div class="toast" id="toast"></div>
 
+<script src="qrcode.min.js"></script>
 <script>
 (function(){
 "use strict";
@@ -403,6 +452,7 @@ if (!uid){
 }
 let room = null;          // current room code
 let hostKey = null;       // this room's host secret, if we hold it
+let globalPeople = null;  // host-added people (mixer/people), shared across rooms
 let roster = [], rosterMap = {};
 let me = null;
 let round = 1;
@@ -413,9 +463,15 @@ const lsHost = () => "mixer_hostkey_" + room;
 
 function mergeRoster(extras){
   roster = ROSTER.slice();
+  if (globalPeople){
+    for (const [id, p] of Object.entries(globalPeople)){
+      if (p && p.name) roster.push({id, name: String(p.name).slice(0, 40), emoji: p.emoji, photo: p.photo, hostAdded: true});
+    }
+  }
   if (extras){
     for (const [id, p] of Object.entries(extras)){
-      if (p && p.name) roster.push({id, name: String(p.name).slice(0, 40), emoji: p.emoji, selfAdded: true});
+      if (p && p.name && !roster.some(x => x.id === id))
+        roster.push({id, name: String(p.name).slice(0, 40), emoji: p.emoji, selfAdded: true});
     }
   }
   roster.sort((a, b) => a.name.localeCompare(b.name));
@@ -426,6 +482,16 @@ function mergeRoster(extras){
 /* ================= boot ================= */
 async function init(){
   mergeRoster(null);
+  // ?room=CODE deep link (from the room's QR) joins directly, no typing
+  const linked = (new URLSearchParams(location.search).get("room") || "").trim().toUpperCase();
+  if (linked){
+    history.replaceState(null, "", location.pathname);
+    try {
+      const meta = await dbGet(`rooms/${linked}/meta`);
+      if (meta){ await enterRoom(linked, meta); return; }
+      toast(`Hmm, room "${linked}" doesn't exist (anymore?).`);
+    } catch (e){ show("scr-offline"); return; }
+  }
   const saved = localStorage.getItem(LS_ROOM);
   if (saved){
     try {
@@ -458,7 +524,6 @@ $("roomform").addEventListener("submit", async ev => {
   await enterRoom(code, meta);
 });
 $("createroom").addEventListener("click", async () => {
-  if (!confirm("Start a brand-new room? (Players join with the 4-letter code you'll get.)")) return;
   try {
     let code;
     for (let tries = 0; tries < 5; tries++){
@@ -469,13 +534,12 @@ $("createroom").addEventListener("click", async () => {
     await dbPut(`rooms/${code}/meta`, {createdAt: Date.now(), hostKey: hk});
     await dbPut(`rooms/${code}/state`, {round: 1});
     localStorage.setItem(lsHostFor(code), hk);
-    alert(`Your room is ready!\n\nROOM CODE: ${code}\n(put this on the big screen)\n\nHOST CODE: ${hk}\n(write this down — it unlocks host controls on any device)`);
-    await enterRoom(code, {hostKey: hk});
+    await enterRoom(code, {hostKey: hk}, {toAdmin: true});
   } catch (e){ toast("Couldn't create the room — try again."); }
 });
 function lsHostFor(code){ return "mixer_hostkey_" + code; }
 
-async function enterRoom(code, meta){
+async function enterRoom(code, meta, opts){
   room = code;
   localStorage.setItem(LS_ROOM, code);
   hostKey = localStorage.getItem(lsHost());
@@ -486,22 +550,168 @@ async function enterRoom(code, meta){
   $("roomtag1").textContent = "room " + room;
   $("roomtag2").textContent = "room " + room;
   try {
-    const [extras, state] = await Promise.all([dbGet(roomPath("extras")), dbGet(roomPath("state"))]);
+    const [extras, people, state] = await Promise.all([
+      dbGet(roomPath("extras")), dbGet("people"), dbGet(roomPath("state"))
+    ]);
+    globalPeople = people;
     mergeRoster(extras);
     round = (state && state.round) || 1;
   } catch (e){ show("scr-offline"); return; }
-  const savedId = localStorage.getItem(lsId());
-  if (savedId && rosterMap[savedId]){
-    me = rosterMap[savedId];
-    await goHome();
+  if (opts && opts.toAdmin && amHost === false && hostKey === null && meta && meta.hostKey){
+    hostKey = meta.hostKey;   // fresh room we just created on this device
+    $("hostopen").hidden = false;
+    $("hostunlock").hidden = true;
+  }
+  if (opts && opts.toAdmin){
+    showAdmin();
   } else {
-    renderSignin();
+    const savedId = localStorage.getItem(lsId());
+    if (savedId && rosterMap[savedId]){
+      me = rosterMap[savedId];
+      await goHome();
+    } else {
+      renderSignin();
+    }
   }
   if (!enterRoom._ticking){
     enterRoom._ticking = true;
     setInterval(backgroundTick, 6500);
   }
   refreshJoinCount();
+}
+
+/* ================= admin view ================= */
+function joinLink(){ return location.origin + location.pathname + "?room=" + room; }
+function showAdmin(){
+  onScreen = "admin";
+  $("adm-code").textContent = room;
+  $("adm-hostcode").textContent = hostKey || "unlock via Host? first";
+  drawRoomQr();
+  renderAdmList();
+  show("scr-admin");
+}
+function drawRoomQr(){
+  const box = $("qrbox");
+  if (typeof qrcode === "undefined"){ box.style.display = "none"; return; }
+  box.style.display = "flex";
+  const qr = qrcode(0, "M");
+  qr.addData(joinLink());
+  qr.make();
+  const n = qr.getModuleCount();
+  const cv = $("roomqr"), ctx = cv.getContext("2d");
+  const size = cv.width;
+  const cell = Math.floor(size / (n + 4));       // 2-module quiet zone each side
+  const off = Math.floor((size - cell * n) / 2);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = "#171030";
+  for (let r = 0; r < n; r++)
+    for (let c = 0; c < n; c++)
+      if (qr.isDark(r, c)) ctx.fillRect(off + c * cell, off + r * cell, cell, cell);
+}
+$("adm-copylink").addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(joinLink());
+    toast("Join link copied!");
+  } catch (e){ prompt("Copy this link:", joinLink()); }
+});
+$("adm-controls").addEventListener("click", () => {
+  $("hostpanel").classList.add("on");
+  refreshHostStats();
+});
+$("adm-enter").addEventListener("click", () => {
+  const savedId = localStorage.getItem(lsId());
+  if (savedId && rosterMap[savedId]){ me = rosterMap[savedId]; goHome(); }
+  else renderSignin();
+});
+
+/* photo upload: shrink to a 240px square jpeg so 60 phones load fast */
+let pendingPhoto = null;
+$("admphoto").addEventListener("change", async ev => {
+  const f = ev.target.files && ev.target.files[0];
+  if (!f) return;
+  if (f.size > 12 * 1024 * 1024){ toast("That image is huge — pick a smaller one."); ev.target.value = ""; return; }
+  try {
+    pendingPhoto = await resizeToDataUrl(f, 240);
+    $("admphotolabel").textContent = "✓ Photo ready";
+  } catch (e){
+    pendingPhoto = null;
+    $("admphotolabel").textContent = "📷 Photo";
+    toast("Couldn't read that image — try a different one.");
+  }
+});
+async function resizeToDataUrl(file, size){
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((res, rej) => {
+      const i = new Image();
+      i.onload = () => res(i);
+      i.onerror = rej;
+      i.src = url;
+    });
+    const cv = document.createElement("canvas");
+    cv.width = cv.height = size;
+    const ctx = cv.getContext("2d");
+    const s = Math.min(img.width, img.height);
+    ctx.drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, size, size);
+    return cv.toDataURL("image/jpeg", 0.72);
+  } finally { URL.revokeObjectURL(url); }
+}
+$("admform").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const name = $("admname").value.trim();
+  if (!name){ toast("Type a name first!"); return; }
+  const id = "g-" + name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 30)
+           + "-" + Math.random().toString(36).slice(2, 6);
+  const body = {name};
+  if (pendingPhoto) body.photo = pendingPhoto;
+  try { await dbPut(`people/${id}`, body); }
+  catch (e){ toast("Couldn't save — try again."); return; }
+  globalPeople = globalPeople || {};
+  globalPeople[id] = body;
+  mergeRoster(null);
+  $("admname").value = "";
+  $("admphoto").value = "";
+  pendingPhoto = null;
+  $("admphotolabel").textContent = "📷 Photo";
+  renderAdmList();
+  toast(`Added ${name} ✓`);
+});
+function renderAdmList(){
+  const wrap = $("admlist");
+  wrap.textContent = "";
+  const entries = Object.entries(globalPeople || {})
+    .filter(([id, p]) => p && p.name)
+    .sort((a, b) => a[1].name.localeCompare(b[1].name));
+  if (!entries.length){
+    const d = document.createElement("p");
+    d.className = "sub";
+    d.style.fontSize = "13px";
+    d.textContent = "No one added yet.";
+    wrap.appendChild(d);
+    return;
+  }
+  for (const [id, p] of entries){
+    const row = document.createElement("div");
+    row.className = "prow";
+    const f = document.createElement("div");
+    f.className = "face";
+    fillFace(f, {id, name: p.name, emoji: p.emoji, photo: p.photo});
+    const nm = document.createElement("span");
+    nm.textContent = p.name;
+    const del = document.createElement("button");
+    del.type = "button";
+    del.textContent = "remove";
+    del.addEventListener("click", async () => {
+      if (!confirm(`Remove ${p.name}?`)) return;
+      try { await dbDelete(`people/${id}`); } catch (e){ toast("Couldn't remove — try again."); return; }
+      delete globalPeople[id];
+      mergeRoster(null);
+      renderAdmList();
+    });
+    row.append(f, nm, del);
+    wrap.appendChild(row);
+  }
 }
 function leaveRoom(){
   localStorage.removeItem(LS_ROOM);
@@ -761,8 +971,12 @@ async function showMatch(res, celebrate){
   onScreen = "match";
   let partners = (res.partners || []).map(id => rosterMap[id]).filter(Boolean);
   if (partners.length < (res.partners || []).length){
-    // partner self-added after we loaded — refresh extras once
-    try { mergeRoster(await dbGet(roomPath("extras"))); } catch (e){}
+    // partner was added after we loaded — refresh the shared lists once
+    try {
+      const [extras, people] = await Promise.all([dbGet(roomPath("extras")), dbGet("people")]);
+      globalPeople = people;
+      mergeRoster(extras);
+    } catch (e){}
     partners = (res.partners || []).map(id => rosterMap[id]).filter(Boolean);
   }
   const facesEl = $("matchfaces");
@@ -790,8 +1004,17 @@ $("backhome").addEventListener("click", () => {
 
 /* ================= background: round changes + counts ================= */
 async function backgroundTick(){
-  if (!me || !room) return;
+  if (!room) return;
   try {
+    if (onScreen === "signin"){
+      // latecomers the host just added should appear without a reload
+      const [extras, people] = await Promise.all([dbGet(roomPath("extras")), dbGet("people")]);
+      globalPeople = people;
+      mergeRoster(extras);
+      await refreshClaims();
+      drawTiles();
+    }
+    if (!me) return;
     const state = await dbGet(roomPath("state"));
     const newRound = (state && state.round) || 1;
     if (newRound !== round){
@@ -814,6 +1037,10 @@ $("hostopen").addEventListener("click", () => {
   refreshHostStats();
 });
 $("host-close").addEventListener("click", () => $("hostpanel").classList.remove("on"));
+$("host-admin").addEventListener("click", () => {
+  $("hostpanel").classList.remove("on");
+  showAdmin();
+});
 
 async function refreshHostStats(){
   try {
